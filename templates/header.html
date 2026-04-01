@@ -6,16 +6,23 @@
     <nav class="main-nav">
         <ul class="nav-list">
             <li><a href="index.html">Головна</a></li>
-            <li class="nav-item apps-menu">
-                <a>Застосунки</a>
+            <li class="dropdown-header-link" id="appsDropdown">
+                <a href="#" id="appsToggle">Застосунки <span class="dropdown-arrow-header-link">▼</span></a>
+
+                <section class="header-links">
+                    <h2 class="section-title">🔧 Інструменти</h2>
+                    <div data-links="header"></div>
+                </section>
             </li>
             <li><a href="about.html">Про нас</a></li>
             <li><a href="contact.html">Контакти</a></li>
         </ul>
     </nav>
     
-    <button class="theme-toggle" id="themeToggle" aria-label="Перемкнути тему">
-        <span class="theme-icon">🌙</span>
+    <button id="themeToggle" class="theme-toggle">
+        <svg class="icon">
+            <use href="assets/img/icons/icons.svg#moon"></use>
+        </svg>
     </button>
     
     <button class="mobile-menu-btn">
