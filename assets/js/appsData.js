@@ -5,11 +5,11 @@ const categories = [
     {
         id: "images",
         name: "Зображення",
-        icon: "image-outline-ico",
+        icon: "image-ico",
         apps: [
-            { id: "compress-image", name: "Стиснення зображень", url: "/apps/compress-image", icon: "compress-image-outline-ico", popular: true },
-            { id: "resize-image", name: "Зміна розміру", url: "/apps/resize-image", icon: "resize-image-outline-ico" },
-            { id: "convert-image", name: "Конвертація формату", url: "/apps/convert-image", icon: "convert-image-outline-ico" }
+            { id: "compress-image", name: "Стиснення зображень", url: "/apps/compress-image", icon: "image-ico", popular: true },
+            { id: "resize-image", name: "Зміна розміру", url: "/apps/resize-image", icon: "image-ico" },
+            { id: "convert-image", name: "Конвертація формату", url: "/apps/convert-image", icon: "image-ico" }
         ]
     },
     {
