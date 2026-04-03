@@ -8,45 +8,53 @@
     <!-- 1️⃣ БАЗА ДЛЯ ВСІХ СТОРІНОК  -->
     <!-- Якщо ваш проєкт розміщений у підкаталозі /lbtoolsnew/ -->
     <script>
-        (function () {
-            // -------------------------------------------------
-            // 1️⃣ Отримуємо абсолютний URL скрипта, який зараз виконується.
-            //    У сучасних браузерах це document.currentScript.src.
-            //    Для старих – fallback до останнього <script> у DOM.
-            // -------------------------------------------------
-            const scriptUrl = document.currentScript?.src ||
-                (function () {
-                    const scripts = document.getElementsByTagName('script');
-                    return scripts[scripts.length - 1].src;
-                })();
+        /*  assets/js/base-path.js  ---------------------------------------------
+        Універсальний скрипт, що:
+        1️⃣ визначає «корінь сайту» (домашню папку репозиторія);
+        2️⃣ створює <base href="…"> і вставляє його першим у <head>;
+        3️⃣ додає глобальну функцію window.basePath(url), якою можна
+            сформувати абсолютний шлях у JavaScript (необов’язково).
+        ------------------------------------------------------------------- */
+        (() => {
+        /* ---------- 1️⃣ ЯК ВИЗНАЧИТИ ПУТЬ СКРИПТА ----------------------- */
+        const scriptUrl = document.currentScript?.src ||
+            (function () {
+            const scripts = document.getElementsByTagName('script');
+            return scripts[scripts.length - 1].src;   // fallback для старих браузерів
+            })();
 
-            // -------------------------------------------------
-            // 2️⃣ Видаляємо назву файлу → залишаємо лише каталог скрипта.
-            //    Приклад:  https://example.com/xyz/assets/js/base.js
-            //    →         https://example.com/xyz/assets/js/
-            // -------------------------------------------------
-            let baseHref = scriptUrl.replace(/[^/]*$/, '');
+        // Каталог скрипта, наприклад
+        //   https://example.com/my-repo/assets/js/
+        //   або https://example.com/assets/js/
+        let base = scriptUrl.replace(/[^/]*$/, '');   // залишаємо лише каталог
 
-            // -------------------------------------------------
-            // 3️⃣ Тепер "відрізаємо" частину шляху, в якій живуть ваші ресурси.
-            //    У більшості проєктів це "/assets/js/", "/static/js/",
-            //    "/public/js/" – залишаємо тільки шлях до кореня
-            //    проекту (може бути просто "/").
-            //    Якщо ваш скрипт лежить в іншій папці – поправте RegExp.
-            // -------------------------------------------------
-            baseHref = baseHref.replace(/\/(assets|static|public)\/js\/?$/i, '/');
+        /* ---------- 2️⃣ ОТРИМАТИ «КОРЕНЬ ПРОЕКТУ» ----------------------- */
+        // Видаляємо типові підкаталоги типу /assets/js/, /static/js/, /public/js/
+        // Якщо ваш скрипт лежить напряму у корені – залишиться просто «/».
+        base = base.replace(/\/(?:assets|static|public|)\/js\/?$/i, '/');
 
-            // Якщо скрипт був у корені (наприклад https://example.com/base.js)
-            // залишаємо простий слеш.
-            if (!baseHref) baseHref = '/';
+        // Додаємо слеш, якщо його немає, і якщо залишився лише протокол+домен
+        if (!base.endsWith('/')) base += '/';
+        if (/^https?:\/\/[^/]+$/.test(base)) base += '/';
 
-            // -------------------------------------------------
-            // 4️⃣ Створюємо <base> і вставляємо його **першим** у <head>.
-            // -------------------------------------------------
-            const baseEl = document.createElement('base');
-            baseEl.href = baseHref;               // ← правильний префікс
-            const head   = document.head;
-            head.insertBefore(baseEl, head.firstChild);
+        /* ---------- 3️⃣ ВСТАВИТИ <base> ----------------------------------- */
+        const baseEl = document.createElement('base');
+        baseEl.href = base;               // <base href="…">
+        const head = document.head;
+        head.insertBefore(baseEl, head.firstChild); // Першим у <head>
+
+        /* ---------- 4️⃣ Додати допоміжну функцію (необов’язково) ------- */
+        // Використовується, коли треба сформувати URL у JS‑коді
+        window.basePath = (url = '') => {
+            // Якщо вже абсолютний (починається протоколом) – нічого не змінюємо
+            if (/^[a-z][a-z0-9+.-]*:/.test(url)) return url;
+
+            // Якщо починається з «/», це шлях від кореня сайту, а не від кореня домену
+            if (url.startsWith('/')) return new URL(url.slice(1), base).href;
+
+            // Інакше просто додаємо до бази
+            return new URL(url, base).href;
+        };
         })();
     </script>
 
