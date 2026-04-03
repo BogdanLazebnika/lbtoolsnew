@@ -9,42 +9,42 @@
     <!-- Якщо ваш проєкт розміщений у підкаталозі /lbtoolsnew/ -->
     <script>
         (function () {
-            // 1️⃣ Яка частина URL – це «кореневий каталог» вашого сайту?
-            //    Якщо ваш проєкт розміщений у підкаталозі, наприклад /lbtoolsnew/,
-            //    то вказуєте його ім’я у масиві `KNOWN_SUBFOLDERS`.
-            //    Якщо сайт живе в корені – масив пустий.
-            const KNOWN_SUBFOLDERS = ['lbtoolsnew']; // <-- додайте сюди ваші підкаталоги
+            /**
+             * Що робимо:
+             * 1️⃣ Пошук у URL‑і частини, що вказує на корінь вашого
+             *    проєкту (наприклад /lbtoolsnew/ або /demo/).
+             * 2️⃣ Якщо проєкт перебуває у корені – береться "/".
+             * 3️⃣ Створюємо <base> і вставляємо його **першим** елементом
+             *    у <head>, ще до будь‑яких <link> і <script>.
+             */
 
-            // 2️⃣ Поточний шлях без назви файлу (тобто каталог, в якому
-            //    знаходиться цей HTML‑файл)
+            // -------------- 1️⃣ Вкажіть тут усі можливі підкаталоги
+            //    (ті, в яких ваш сайт може бутит розгорнутий)
+            const KNOWN_SUBFOLDERS = ['lbtoolsnew'];   // <-- додайте, якщо треба
+
+            // -------------- 2️⃣ Поточний шлях до каталогу файлу
             const dirPath = location.pathname.replace(/[^/]*$/, ''); // "/foo/bar/" → "/foo/bar/"
 
-            // 3️⃣ Шукаємо, чи dirPath містить один із відомих підкаталогів.
-            //    Якщо так – робимо його базою, інакше – корінь "/".
-            let baseHref = '/';
+            // -------------- 3️⃣ Визначаємо базовий URL
+            let baseHref = '/';                         // за замовчуванням – корінь домену
+
             for (const sub of KNOWN_SUBFOLDERS) {
                 const idx = dirPath.indexOf(`/${sub}/`);
                 if (idx !== -1) {
-                    // Взяти частину шляху до кінця підкаталогу включно
+                    // Взяти частину шляху **до** підкаталогу включно
                     baseHref = dirPath.slice(0, idx + sub.length + 1);
                     break;
                 }
             }
 
-            // 4️⃣ Створюємо <base> і вставляємо його на початок <head>
+            // -------------- 4️⃣ Додаємо <base>
             const baseEl = document.createElement('base');
-            baseEl.href = baseHref;
-            // Вставляємо **першим** елементом у <head>, ще до
-            // будь‑яких <link> чи <script>.
-            const head = document.head;
-            head.insertBefore(baseEl, head.firstChild);
+            baseEl.href = baseHref;                 // наприклад "/lbtoolsnew/"
+            document.head.insertBefore(baseEl, document.head.firstChild);
         })();
     </script>
 
-    <!-- Якщо проєкт уже в корені домену (продакшн) -->
-    <!-- <base href="/"> -->
-
-    <!-- Після <base> ВСІ відносні посилання будуть склеюватись з нею -->
+    <!-- Після <base> ВСІ відносні посилання підставляються до нього -->
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/header.css">
