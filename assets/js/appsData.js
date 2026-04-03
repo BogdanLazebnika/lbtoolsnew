@@ -1,6 +1,6 @@
-// =====================
-// ДАНІ
-// =====================
+/*====================================================================
+  ======================   ДАНІ   ======================
+====================================================================*/
 const categories = [
     {
         id: "images",
@@ -32,9 +32,9 @@ const categories = [
     }
 ];
 
-// =====================
-// ІКОНКА
-// =====================
+/*====================================================================
+  ======================   ІКОНИ   ======================
+====================================================================*/
 function getIcon(icon, className = 'icon') {
     return `
         <svg class="${className}">
@@ -43,11 +43,17 @@ function getIcon(icon, className = 'icon') {
     `;
 }
 
-// =====================
-// ВСЯ ЛОГІКА 🔥 (ОНОВЛЕНА ВЕРСІЯ)
-// =====================
+/*====================================================================
+  ======================   ОСНОВНИЙ ФУНКЦІОНАЛ   ======================
+====================================================================*/
+
+/**
+ * Рендер усіх блоків, позначених атрибутом data-links.
+ * Після кожного рендеру автоматично підключаються
+ * "аккордеон"-слухачі для header/footer.
+ */
 function initLinks() {
-    // 👉 всі apps в один масив
+    /* 1️⃣ Підготовка масиву всіх додатків (для типів category/related/all) */
     const allApps = categories.flatMap(cat =>
         cat.apps.map(app => ({
             ...app,
@@ -57,35 +63,34 @@ function initLinks() {
         }))
     );
 
-    // 👉 знаходимо ВСІ блоки на сторінці
+    /* 2️⃣ Знаходимо всі блоки, які потрібно заповнити */
     const blocks = document.querySelectorAll("[data-links]");
 
     blocks.forEach(block => {
-        const type = block.dataset.links;
-        const category = block.dataset.category;
-        const current = block.dataset.current;
+        const type      = block.dataset.links;   // header | footer | category | related | all
+        const category  = block.dataset.category; // використовується в типі “category”
+        const current   = block.dataset.current; // використовується в типі “related”
 
-        let content = '';
+        let html = '';
 
-        // =====================
-        // ТИПИ ВИВОДУ
-        // =====================
-
+        /* -------------------------------------------------
+           3️⃣ Формуємо HTML‑контент у залежності від type
+           ------------------------------------------------- */
         if (type === "header") {
-            // Випадаючі категорії для шапки та футера
-            content = categories.map(cat => `
-                <div class="category-dropdown">
-                    <div class="category-header">
-                        ${getIcon(cat.icon, 'category-icon')}
-                        <span class="category-name-header">${cat.name}</span>
-                        <span class="category-name-arrow-header">▼</span>
+            // ---------- Header (випадаюча шапка) ----------
+            html = categories.map(cat => `
+                <div class="category-dropdown-header">
+                    <div class="category category-header">
+                        ${getIcon(cat.icon, 'category-icon category-icon-header')}
+                        <span class="category-name category-name-header">${cat.name}</span>
+                        <span class="category-name-arrow category-name-arrow-header">▼</span>
                     </div>
-                    <div class="category-content">
-                        <div class="apps-grid-header">
+                    <div class="category-content category-content-header">
+                        <div class="apps-grid apps-grid-header">
                             ${cat.apps.map(app => `
-                                <a href="${app.url}" class="app-link-header">
-                                    ${getIcon(app.icon, 'app-icon')}
-                                    <span class="app-name">${app.name}</span>
+                                <a href="${app.url}" class="app-link app-link-header">
+                                    ${getIcon(app.icon, 'app-icon app-icon-header')}
+                                    <span class="app-name app-name-header">${app.name}</span>
                                 </a>
                             `).join('')}
                         </div>
@@ -94,20 +99,20 @@ function initLinks() {
             `).join('');
         }
         else if (type === "footer") {
-            // Випадаючі категорії для шапки та футера
-            content = categories.map(cat => `
-                <div class="category-dropdown">
-                    <div class="category-footer">
-                        ${getIcon(cat.icon, 'category-icon')}
-                        <span class="category-name">${cat.name}</span>
-                        <span class="category-name-arrow">▼</span>
+            // ---------- Footer (випадаюча підвал) ----------
+            html = categories.map(cat => `
+                <div class="category-dropdown category-dropdown-footer">
+                    <div class="category category-footer">
+                        ${getIcon(cat.icon, 'category-icon category-icon-footer')}
+                        <span class="category-name category-name-footer">${cat.name}</span>
+                        <span class="category-name-arrow category-name-arrow-footer">▼</span>
                     </div>
-                    <div class="category-content">
-                        <div class="apps-grid-footer">
+                    <div class="category-content category-content-footer">
+                        <div class="apps-grid apps-grid-footer">
                             ${cat.apps.map(app => `
-                                <a href="${app.url}" class="app-link">
-                                    ${getIcon(app.icon, 'app-icon')}
-                                    <span class="app-name">${app.name}</span>
+                                <a href="${app.url}" class="app-link app-link-footer">
+                                    ${getIcon(app.icon, 'app-icon app-icon-footer')}
+                                    <span class="app-name app-name-footer">${app.name}</span>
                                 </a>
                             `).join('')}
                         </div>
@@ -115,11 +120,10 @@ function initLinks() {
                 </div>
             `).join('');
         }
-
         else if (type === "category") {
-            // Простий список для конкретної категорії
+            // ---------- Окремий список однієї категорії ----------
             const list = allApps.filter(a => a.category === category);
-            content = list.map(app => `
+            html = list.map(app => `
                 <a href="${app.url}" class="app-link">
                     ${getIcon(app.icon, 'app-icon')}
                     <span class="app-name">${app.name}</span>
@@ -127,9 +131,9 @@ function initLinks() {
             `).join('');
         }
         else if (type === "related") {
-            // Пов'язані додатки
+            // ---------- Схожі додатки ----------
             const list = allApps.filter(a => a.category === category && a.id !== current);
-            content = list.map(app => `
+            html = list.map(app => `
                 <a href="${app.url}" class="app-link">
                     ${getIcon(app.icon, 'app-icon')}
                     <span class="app-name">${app.name}</span>
@@ -137,32 +141,27 @@ function initLinks() {
             `).join('');
         }
         else if (type === "all") {
-            // Всі додатки з групуванням по категоріях
-            const groupedByCategory = {};
-            
-            // Групуємо додатки по категоріях
+            // ---------- Всі додатки, згруповані по категоріях ----------
+            const grouped = {};
+
             allApps.forEach(app => {
-                if (!groupedByCategory[app.category]) {
-                    groupedByCategory[app.category] = [];
-                }
-                groupedByCategory[app.category].push(app);
+                if (!grouped[app.category]) grouped[app.category] = [];
+                grouped[app.category].push(app);
             });
 
-            // Створюємо контент з заголовками категорій
-            content = Object.entries(groupedByCategory).map(([categoryId, apps]) => {
-                const categoryInfo = categories.find(cat => cat.id === categoryId);
+            html = Object.entries(grouped).map(([catId, apps]) => {
+                const catInfo = categories.find(c => c.id === catId);
                 return `
                     <div class="category-group">
                         <div class="category-title">
-                            ${getIcon(categoryInfo.icon, 'category-icon')}
-                            <h3>${categoryInfo.name}</h3>
+                            ${getIcon(catInfo.icon, 'category-icon')}
+                            <h3>${catInfo.name}</h3>
                         </div>
                         <div class="apps-grid">
                             ${apps.map(app => `
                                 <a href="${app.url}" class="app-link">
                                     ${getIcon(app.icon, 'app-icon')}
                                     <span class="app-name">${app.name}</span>
-                                   
                                 </a>
                             `).join('')}
                         </div>
@@ -171,47 +170,81 @@ function initLinks() {
             }).join('');
         }
 
-        // =====================
-        // РЕНДЕР
-        // =====================
-        block.innerHTML = content;
+        /* -------------------------------------------------
+           4️⃣ Вставляємо сформований HTML у контейнер
+           ------------------------------------------------- */
+        block.innerHTML = html;
 
-        // Додаємо обробник подій для випадаючих списків
+        /* -------------------------------------------------
+           5️⃣ Підключаємо логіку «аккордеону» для header/footer
+           ------------------------------------------------- */
         if (type === "header" || type === "footer") {
-            const dropdowns = block.querySelectorAll('.category-header');
-            dropdowns.forEach(dropdown => {
-                dropdown.addEventListener('click', function() {
-                    const content = this.nextElementSibling;
-                    const isOpen = content.classList.contains('open');
-                    
-                    // Закриваємо всі інші
-                    block.querySelectorAll('.category-content').forEach(item => {
-                        item.classList.remove('open');
-                    });
-                    block.querySelectorAll('.category-header').forEach(item => {
-                        item.classList.remove('active');
-                    });
-                    
-                    // Відкриваємо поточний, якщо був закритий
-                    if (!isOpen) {
-                        content.classList.add('open');
-                        this.classList.add('active');
-                    }
-                });
-            });
+            setupDropdowns(block, type);
         }
     });
 }
 
+/**
+ * Підключає слухачі до всіх .category‑header чи .category‑footer
+ * у переданому контейнері.
+ *
+ * @param {Element} container  – блок, в якому здійснюємо пошук (data‑links)
+ * @param {string}  type      – "header" або "footer"
+ */
+function setupDropdowns(container, type) {
+    const isHeader = type === "header";
 
-// Викликаємо функцію при завантаженні сторінки
+    // Які саме класи шукаємо у цьому типі
+    const triggerClass    = isHeader ? ".category-header"       : ".category-footer";
+    const contentClass    = isHeader ? ".category-content-header" : ".category-content-footer";
+    const activeClass     = "active";   // однаковий для обох типів
+    const openClass      = "open";
+
+    // Всі «заголовки» випадаючих блоків
+    const triggers = container.querySelectorAll(triggerClass);
+
+    triggers.forEach(trigger => {
+        const content = trigger.nextElementSibling; // .category-content‑…
+
+        if (!content) return; // безпечний захист
+
+        // Клік по заголовку – відкриття/закриття
+        trigger.addEventListener('click', (e) => {
+            const alreadyOpen = content.classList.contains(openClass);
+
+            // 1️⃣ Закриваємо всі інші в цьому ж контейнері
+            container.querySelectorAll(contentClass).forEach(el => el.classList.remove(openClass));
+            container.querySelectorAll(triggerClass).forEach(el => el.classList.remove(activeClass));
+
+            // 2️⃣ Якщо поточний був закрите – відкриваємо
+            if (!alreadyOpen) {
+                content.classList.add(openClass);
+                trigger.classList.add(activeClass);
+            }
+        });
+
+        // 3️⃣ Клік всередині контенту НЕ має «прокидатися» до document
+        //    (інакше випадає «закриття всіх»). Тому зупиняємо підйом.
+        content.addEventListener('click', e => e.stopPropagation());
+    });
+}
+
+/*====================================================================
+  ======================   ІНІЦІАЛІЗАЦІЯ   ======================
+====================================================================*/
 document.addEventListener('DOMContentLoaded', initLinks);
 
-// Додатково: можливість перезавантажити список
+/* ==============================================================
+   Додаткова можливість «перезавантажити» блоки
+   (використовується, коли підвантажуються нові шаблони)
+   ============================================================== */
 function reloadLinks() {
     initLinks();
 }
 
-// Експортуємо функції для глобального використання
-window.initLinks = initLinks;
+/* --------------------------------------------------------------
+   Експорт в global scope – потрібен, якщо ви викликаєте
+   initLinks() з інших скриптів (наприклад, після fetch‑шаблону)
+   -------------------------------------------------------------- */
+window.initLinks   = initLinks;
 window.reloadLinks = reloadLinks;

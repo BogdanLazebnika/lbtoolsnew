@@ -135,3 +135,65 @@ function initHeader() {
         });
     }
 }
+
+
+/* -------------------------------------------------
+   Footer‑Apps “Застосунки” – автопідключення
+   (ставте в кінець вашого скрипту)
+--------------------------------------------------- */
+(() => {
+    // ------- 1️⃣ Селектори, які вже є у вашій розмітці -------
+    const BTN_SELECTOR  = '.footer-menu-item:nth-child(2) .footer-menu-link';
+    const MENU_SELECTOR = '.footer-apps-section';
+
+    // ------- 2️⃣ Під’єднуємо обробники -------
+    const attachHandler = (button, menu) => {
+        if (!button || !menu) return;
+
+        // уникаємо дублювання підключення
+        if (button.__footerAppsHandlerAttached) return;
+        button.__footerAppsHandlerAttached = true;
+
+        /* ---------- 1. Клік по всій сторінці (capture) ----------
+           capture = true → обробник працює *до* stopPropagation() у шапці   */
+        document.addEventListener('click', (e) => {
+            const clickOnButton = button === e.target || button.contains(e.target);
+            const menuIsOpen    = menu.classList.contains('active');
+
+            if (clickOnButton) {            // клік саме по кнопці «Застосунки»
+                e.preventDefault();         // блокуємо перехід за <a>
+                menu.classList.toggle('active');
+                button.classList.toggle('active-button');
+            } else if (menuIsOpen && !menu.contains(e.target)) {
+                // клік поза меню – закрити
+                menu.classList.remove('active');
+                button.classList.remove('active-button');
+            }
+        }, true); // <-- **ОСЬ ВАЖЛИВО: capture‑фаза**
+
+        /* ---------- 2. Клік всередині меню ----------
+           Зупиняємо «прокидання» далі, інакше потрапляло б у
+           документ‑слухач (хоча в нашому випадку capture вже спрацював). */
+        menu.addEventListener('click', (e) => e.stopPropagation());
+    };
+
+    // ------- 3️⃣ Пошук елементів одразу (може вже бути в DOM) -------
+    const buttonNow = document.querySelector(BTN_SELECTOR);
+    const menuNow   = document.querySelector(MENU_SELECTOR);
+
+    if (buttonNow && menuNow) {
+        attachHandler(buttonNow, menuNow);
+    } else {
+        // ------- 4️⃣ Якщо футер підвантажується динамічно – чекаємо -------
+        const observer = new MutationObserver(() => {
+            const btn = document.querySelector(BTN_SELECTOR);
+            const mnu = document.querySelector(MENU_SELECTOR);
+            if (btn && mnu) {
+                attachHandler(btn, mnu);
+                observer.disconnect(); // більше не потрібно спостерігати
+            }
+        });
+
+        observer.observe(document.body, { childList: true, subtree: true });
+    }
+})();
