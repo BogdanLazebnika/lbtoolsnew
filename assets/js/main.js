@@ -43,6 +43,17 @@ const categories = [
         apps: [
             { id: "compress-image", name: "Стиснення зображень", url: "/image-apps/compress-image", icon: "image-ico", popular: true },
             { id: "resize-image",   name: "Зміна розміру",        url: "/image-apps/resize-image",   icon: "image-ico" },
+            { id: "convert-image", name: "Конвертація формату", url: "/image-apps/convert-image", icon: "image-ico" },
+            { id: "crop-image", name: "обрізання фото", url: "/image-apps/crop-image", icon: "image-ico" }
+        ]
+    },
+    {
+        id: "revo",
+        name: "рево",
+        icon: "image-ico",
+        apps: [
+            { id: "compress-image", name: "Стиснення зображень", url: "/image-apps/compress-image", icon: "image-ico", popular: true },
+            { id: "resize-image",   name: "Зміна розміру",        url: "/image-apps/resize-image",   icon: "image-ico" },
             { id: "convert-image", name: "Конвертація формату", url: "/image-apps/convert-image", icon: "image-ico" }
         ]
     },
@@ -229,24 +240,23 @@ function setupDropdowns(container, type) {
 
     const triggers = container.querySelectorAll(triggerSel);
     triggers.forEach(trigger => {
-        const content = trigger.nextElementSibling; // .category-content‑…
+        const content = trigger.nextElementSibling;
         if (!content) return;
 
         trigger.addEventListener('click', () => {
             const alreadyOpen = content.classList.contains(openCls);
 
-            // 1️⃣ Закрити всі інші у цьому контейнері
+            // Закрити всі інші у цьому контейнері
             container.querySelectorAll(contentSel).forEach(el => el.classList.remove(openCls));
             container.querySelectorAll(triggerSel).forEach(el => el.classList.remove(activeCls));
 
-            // 2️⃣ Якщо поточний був закритий – відкрити його
+            // Якщо поточний був закритий – відкрити його
             if (!alreadyOpen) {
                 content.classList.add(openCls);
                 trigger.classList.add(activeCls);
             }
         });
 
-        // Клік всередині контенту не має «прокидатися» до document
         content.addEventListener('click', e => e.stopPropagation());
     });
 }
@@ -256,7 +266,7 @@ function setupDropdowns(container, type) {
  * Після заповнення підключає потрібну логіку (аккордеони, плавний скрол тощо).
  */
 function renderDynamicLinks() {
-    // -------- 1️⃣ Підготовка «всіх» додатків (для типу “all”, “related” і т.д. ----------
+    // Підготовка «всіх» додатків
     const allApps = categories.flatMap(cat =>
         cat.apps.map(app => ({
             ...app,
@@ -266,7 +276,7 @@ function renderDynamicLinks() {
         }))
     );
 
-    // -------- 2️⃣ Знаходимо всі блоки, які треба заповнити ----------
+    // Знаходимо всі блоки, які треба заповнити
     const blocks = document.querySelectorAll('[data-links]');
 
     blocks.forEach(block => {
@@ -276,9 +286,8 @@ function renderDynamicLinks() {
 
         let html = '';
 
-        // -------- 3️⃣ Формуємо HTML залежно від типу ----------
         if (type === "header") {
-            // ---- Шапка (header‑dropdown) ----
+            // Шапка (header‑dropdown)
             html = categories.map(cat => `
                 <div class="category-dropdown-header">
                     <div class="category category-header">
@@ -298,8 +307,9 @@ function renderDynamicLinks() {
                     </div>
                 </div>
             `).join('');
-        } else if (type === "footer") {
-            // ---- Футер (footer‑dropdown) ----
+        } 
+        else if (type === "footer") {
+            // Футер (footer‑dropdown)
             html = categories.map(cat => `
                 <div class="category-dropdown category-dropdown-footer">
                     <div class="category category-footer">
@@ -319,56 +329,71 @@ function renderDynamicLinks() {
                     </div>
                 </div>
             `).join('');
-        } else if (type === "category") {
-            // ---- Список додатків однієї категорії ----
+        } 
+        else if (type === "category") {
+            // Список додатків однієї категорії (унікальні класи)
             const list = allApps.filter(a => a.category === category);
-            html = list.map(app => `
-                <a href="${app.url}" class="app-link">
-                    ${getIcon(app.icon, 'app-icon')}
-                    <span class="app-name">${app.name}</span>
-                </a>
-            `).join('');
-        } else if (type === "related") {
-            // ---- Схожі додатки (ті ж категорії, крім поточного) ----
+            html = `<div class="category-simple-list">` + 
+                list.map(app => `
+                    <a href="${app.url}" class="app-link-category">
+                        ${getIcon(app.icon, 'app-icon-category')}
+                        <span class="app-name-category">${app.name}</span>
+                        ${app.popular ? '<span class="popular-badge-category">🔥 Популярний</span>' : ''}
+                    </a>
+                `).join('') + 
+                `</div>`;
+        } 
+        else if (type === "related") {
+            // Схожі додатки (унікальні класи)
             const list = allApps.filter(a => a.category === category && a.id !== current);
-            html = list.map(app => `
-                <a href="${app.url}" class="app-link">
-                    ${getIcon(app.icon, 'app-icon')}
-                    <span class="app-name">${app.name}</span>
-                </a>
-            `).join('');
-        } else if (type === "all") {
-            // ---- Всі додатки, згруповані по категоріях ----
+            html = `<div class="related-simple-list">` + 
+                list.map(app => `
+                    <a href="${app.url}" class="app-link-related">
+                        ${getIcon(app.icon, 'app-icon-related')}
+                        <span class="app-name-related">${app.name}</span>
+                    </a>
+                `).join('') + 
+                `</div>`;
+        } 
+        else if (type === "all") {
+            // Всі додатки, згруповані по категоріях (унікальні класи)
             const grouped = {};
             allApps.forEach(app => {
                 if (!grouped[app.category]) grouped[app.category] = [];
                 grouped[app.category].push(app);
             });
-            html = Object.entries(grouped).map(([catId, apps]) => {
-                const catInfo = categories.find(c => c.id === catId);
-                return `
-                    <div class="category-group">
-                        <div class="category-title">
-                            ${getIcon(catInfo.icon, 'category-icon')}
-                            <h3>${catInfo.name}</h3>
+            
+            html = `<div class="all-apps-container">` + 
+                Object.entries(grouped).map(([catId, apps]) => {
+                    const catInfo = categories.find(c => c.id === catId);
+                    return `
+                        <div class="category-group-all">
+                            <div class="category-title-all">
+                                ${getIcon(catInfo.icon, 'category-icon-all')}
+                                <h3 class="category-name-all">${catInfo.name}</h3>
+                                <span class="category-count-all">${apps.length} додатків</span>
+                            </div>
+                            <div class="apps-grid-all">
+                                ${apps.map(app => `
+                                    <a href="${app.url}" class="app-link-all">
+                                        ${getIcon(app.icon, 'app-icon-all')}
+                                        <div class="app-info-all">
+                                            <span class="app-name-all">${app.name}</span>
+                                            ${app.popular ? '<span class="popular-badge-all">Популярний</span>' : ''}
+                                        </div>
+                                    </a>
+                                `).join('')}
+                            </div>
                         </div>
-                        <div class="apps-grid">
-                            ${apps.map(app => `
-                                <a href="${app.url}" class="app-link">
-                                    ${getIcon(app.icon, 'app-icon')}
-                                    <span class="app-name">${app.name}</span>
-                                </a>
-                            `).join('')}
-                        </div>
-                    </div>
-                `;
-            }).join('');
+                    `;
+                }).join('') + 
+                `</div>`;
         }
 
-        // -------- 4️⃣ Вставляємо HTML у контейнер ----------
+        // Вставляємо HTML у контейнер
         block.innerHTML = html;
 
-        // -------- 5️⃣ Підключаємо «аккордеони» лише для header/footer ----------
+        // Підключаємо «аккордеони» лише для header/footer
         if (type === "header" || type === "footer") {
             setupDropdowns(block, type);
         }
@@ -399,20 +424,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const promises = [];
 
-    // ---- 7.1  Завантажуємо header ----
     if (headerEl) {
         promises.push(
             fetch('templates/header.html')
                 .then(r => r.text())
                 .then(html => {
                     headerEl.innerHTML = html;
-                    initHeader();        // тема, меню, dropdown‑apps у хедері
-                    initHeaderScroll();  // «липке» меню
+                    initHeader();
+                    initHeaderScroll();
                 })
         );
     }
 
-    // ---- 7.2  Завантажуємо footer ----
     if (footerEl) {
         promises.push(
             fetch('templates/footer.html')
@@ -423,23 +446,13 @@ document.addEventListener('DOMContentLoaded', () => {
         );
     }
 
-    // Після того, як обидва шаблони завантажені,
-    // 1) заповнюємо динамічні блоки (categories, apps, etc.)
-    // 2) підключаємо плавний скрол та інші «загальні» скрипти.
     Promise.all(promises).then(() => {
-        renderDynamicLinks();   // <‑‑ ваш «initLinks», назву змінили, бо вже є
-        initSmoothScroll();    // плавний скрол по #anchor‑посиланням
+        renderDynamicLinks();
+        initSmoothScroll();
     });
 });
 
-/*=====================================================================
-   8️⃣  ЕКСПОРТ ФУНКЦІЙ ДЛЯ ВИКОРИСТАННЯ ПОЗНІШЕ (наприклад, при
-       динамічному підвантаженні нових секцій)
-   =====================================================================*/
-window.renderDynamicLinks = renderDynamicLinks;   // <‑‑ те саме, що раніше `initLinks`
-window.reloadLinks        = renderDynamicLinks;   // сумісність з існуючими викликами
+window.renderDynamicLinks = renderDynamicLinks;
+window.reloadLinks        = renderDynamicLinks;
 
-/*=====================================================================
-   9️⃣  КОНСОЛЬНЕ ПОВІДОМЛЕННЯ (запевняємо, що скрипти завантажились)
-   =====================================================================*/
 console.log('💡 main.js – успішно ініціалізовано');
