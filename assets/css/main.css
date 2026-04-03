@@ -585,22 +585,38 @@ main{
             z-index: 1;
         }
         
-        .quick-upload-area {
-            background: rgba(255,255,255,0.12);
-            backdrop-filter: blur(12px);
-            border: 2px dashed rgba(255,255,255,0.4);
-            border-radius: 28px;
-            padding: var(--space-xl);
+        /* Велика кнопка замість зони завантаження */
+        .hero-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-md);
+            background: white;
+            color: var(--accent-primary);
+            padding: var(--space-lg) var(--space-2xl);
+            border-radius: 60px;
+            font-size: var(--text-lg);
+            font-weight: 700;
+            text-decoration: none;
             transition: var(--transition-default);
-            cursor: pointer;
             position: relative;
             z-index: 1;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            border: none;
+            cursor: pointer;
         }
         
-        .quick-upload-area:hover {
-            background: rgba(255,255,255,0.22);
-            border-color: white;
-            transform: scale(1.02);
+        .hero-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+            background: #f8f9fa;
+        }
+        
+        .hero-btn svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--accent-primary);
+            stroke-width: 2;
         }
         
         /* Стрічка довіри */
@@ -964,15 +980,28 @@ main{
             border-radius: 3px;
         }
         
+        /* Анімація для кнопки */
+        .hero-btn {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+            50% { box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 0 8px rgba(255,255,255,0.2); }
+            100% { box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+        }
+        
         @media (max-width: 768px) {
             .hero-block { padding: var(--space-xl) var(--space-lg); }
             .hero-block h1 { font-size: var(--text-3xl); }
+            .hero-btn { padding: var(--space-md) var(--space-xl); font-size: var(--text-base); }
             .trust-bar { border-radius: 30px; gap: var(--space-md); }
             .formats-grid { grid-template-columns: repeat(2, 1fr); }
         }
         
         @media (max-width: 480px) {
             .hero-block h1 { font-size: var(--text-2xl); }
+            .hero-btn { padding: var(--space-sm) var(--space-lg); font-size: var(--text-sm); }
             .trust-bar { flex-direction: column; align-items: center; border-radius: 20px; }
             .formats-grid { grid-template-columns: 1fr; }
             .scroll-to-top { bottom: 20px; right: 20px; width: 40px; height: 40px; font-size: 18px; }
