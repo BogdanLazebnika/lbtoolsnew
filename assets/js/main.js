@@ -1,46 +1,78 @@
 // =====================
-// ПОЛІПШЕНА ВЕРСІЯ ДЛЯ АСИНХРОННОЇ РОБОТИ
+// УТИЛІТНІ ФУНКЦІЇ ДЛЯ ОПТИМІЗАЦІЇ
 // =====================
 
-// Завантаження шапки та футера
+function throttle(func, limit) {
+    let inThrottle;
+    return function(...args) {
+        if (!inThrottle) {
+            func.apply(this, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    };
+}
+
+// =====================
+// ОСНОВНИЙ КОД
+// =====================
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Завантаження шапки
     const header = document.getElementById('header');
+    const footer = document.getElementById('footer');
+
+    const loadPromises = [];
+
     if (header) {
-        fetch('templates/header.html')
-            .then(r => r.text())
-            .then(h => {
-                header.innerHTML = h;
-                initHeader();
-                // Після завантаження шапки ініціалізуємо посилання
-                initLinks();
-            });
+        loadPromises.push(
+            fetch('templates/header.html')
+                .then(r => r.text())
+                .then(h => {
+                    header.innerHTML = h;
+                    initHeader();
+                    initHeaderScroll();
+                })
+        );
     }
     
-    // Завантаження футера
-    const footer = document.getElementById('footer');
     if (footer) {
-        fetch('templates/footer.html')
-            .then(r => r.text())
-            .then(f => {
-                footer.innerHTML = f;
-                // Після завантаження футера ініціалізуємо посилання
-                initLinks();
-            });
+        loadPromises.push(
+            fetch('templates/footer.html')
+                .then(r => r.text())
+                .then(f => {
+                    footer.innerHTML = f;
+                })
+        );
     }
+
+    // Ініціалізуємо посилання після завантаження всіх шаблонів
+    Promise.all(loadPromises).then(() => {
+        initLinks();
+    });
 });
 
-// Ініціалізація шапки
-function initHeader() {
+function initHeaderScroll() {
+    const siteHeader = document.querySelector('.site-header');
     
-    // Кнопка теми
+    if (siteHeader) {
+        // Оптимізований скролл з тротлінгом
+        const handleScroll = throttle(() => {
+            siteHeader.classList.toggle('scrolled', window.scrollY > 72);
+        }, 16); // ~60fps
+        
+        window.addEventListener('scroll', handleScroll);
+        
+        // Початковий стан
+        siteHeader.classList.toggle('scrolled', window.scrollY > 50);
+    }
+}
+
+function initHeader() {
     const themeBtn = document.getElementById('themeToggle');
     if (themeBtn) {
-        // Функція для оновлення іконки
         const updateIcon = (theme) => {
             const icon = themeBtn.querySelector('.icon');
             if (icon) {
-                // Змінюємо символ в href
                 icon.querySelector('use').setAttribute('href', 
                     `assets/img/icons/icons.svg#${theme === 'dark' ? 'sun-ico' : 'moon-ico'}`);
             }
@@ -54,14 +86,12 @@ function initHeader() {
             updateIcon(theme);
         };
         
-        // Завантаження теми
         const saved = localStorage.getItem('theme') || 
                      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
         document.documentElement.setAttribute('data-theme', saved);
         updateIcon(saved);
     }
     
-    // Кнопка мобільного меню
     const menuBtn = document.querySelector('.mobile-menu-btn');
     const nav = document.querySelector('.main-nav');
     if (menuBtn && nav) {
@@ -71,53 +101,37 @@ function initHeader() {
         };
     }
     
-    // Додайте цей код до вашої функції initHeader() або окремо
+    const appsToggle = document.getElementById('appsToggle');
+    const appsDropdown = document.getElementById('appsDropdown');
 
-// Кнопка застосунків
-const appsToggle = document.getElementById('appsToggle');
-const appsDropdown = document.getElementById('appsDropdown');
-
-if (appsToggle && appsDropdown) {
-    appsToggle.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation(); // Запобігаємо спливанню події
-        
-        // Перемикаємо клас open
-        appsDropdown.classList.toggle('open');
-        
-        // Додаємо/видаляємо клас active для стрілки
-        const arrow = this.querySelector('.dropdown-arrow-header-link');
-        if (arrow) {
-            arrow.classList.toggle('active');
-        }
-        
-        console.log('Меню застосунків переключено! Стан:', appsDropdown.classList.contains('open') ? 'відкрито' : 'закрито');
-    });
-    
-    // Закриття меню при кліку поза ним
-    document.addEventListener('click', function(e) {
-        if (appsDropdown.classList.contains('open') && 
-            !appsDropdown.contains(e.target) && 
-            e.target !== appsToggle) {
-            appsDropdown.classList.remove('open');
+    if (appsToggle && appsDropdown) {
+        appsToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
             
-            // Видаляємо клас active з стрілки
-            const arrow = appsToggle.querySelector('.dropdown-arrow-header-link');
+            appsDropdown.classList.toggle('open');
+            
+            const arrow = this.querySelector('.dropdown-arrow-header-link');
             if (arrow) {
-                arrow.classList.remove('active');
+                arrow.classList.toggle('active');
             }
-            
-            console.log('Меню застосунків закрито (клік поза меню)');
-        }
-    });
-    
-    // Запобігаємо закриттю при кліку всередині меню
-    appsDropdown.addEventListener('click', function(e) {
-        e.stopPropagation();
-    });
-}
-
-
-
-    
+        });
+        
+        document.addEventListener('click', function(e) {
+            if (appsDropdown.classList.contains('open') && 
+                !appsDropdown.contains(e.target) && 
+                e.target !== appsToggle) {
+                appsDropdown.classList.remove('open');
+                
+                const arrow = appsToggle.querySelector('.dropdown-arrow-header-link');
+                if (arrow) {
+                    arrow.classList.remove('active');
+                }
+            }
+        });
+        
+        appsDropdown.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    }
 }

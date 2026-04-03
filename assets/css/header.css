@@ -96,7 +96,7 @@
     position: relative;
 }
 
-.nav-list a {
+.nav-link {
     color: var(--header-text);
     text-decoration: none;
     font-weight: 600;
@@ -109,7 +109,7 @@
     overflow: hidden;
 }
 
-.nav-list a::before {
+.nav-link::before {
     content: '';
     position: absolute;
     top: 0;
@@ -120,17 +120,17 @@
     transition: left 0.5s ease;
 }
 
-.nav-list a:hover::before {
+.nav-link:hover::before {
     left: 100%;
 }
 
-.nav-list a:hover {
+.nav-link:hover {
     background: rgba(255, 255, 255, 0.15);
     
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.nav-list a::after {
+.nav-link::after {
     content: '';
     position: absolute;
     bottom: -2px;
@@ -143,7 +143,7 @@
     border-radius: 2px;
 }
 
-.nav-list a:hover::after {
+.nav-link:hover::after {
     width: 70%;
 }
 
@@ -346,16 +346,16 @@
         overflow-x: hidden;
     }
     
-    .nav-list a {
+    .nav-link {
         padding: var(--space-md);
         font-size: var(--text-base);
         border-radius: 12px;
-        text-align: center;
+        text-align: left;
         margin-bottom: var(--space-xs);
         background: rgba(255, 255, 255, 0.05);
     }
     
-    .nav-list a:hover {
+    .nav-link:hover {
         transform: translateX(5px);
         background: rgba(255, 255, 255, 0.1);
     }
@@ -390,7 +390,7 @@
         gap: var(--space-sm);
     }
     
-    .nav-list a {
+    .nav-link {
         padding: var(--space-xs) var(--space-sm);
         font-size: var(--text-sm);
     }
@@ -418,7 +418,7 @@
         padding-right: var(--space-sm);
     }
     
-    .nav-list a {
+    .nav-link {
         padding: var(--space-sm);
         font-size: var(--text-sm);
     }
@@ -493,7 +493,7 @@
 .site-header,
 .header-container,
 .logo a,
-.nav-list a,
+.nav-link,
 .theme-toggle,
 .mobile-menu-btn span {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -522,65 +522,275 @@
 
 
 
+/* ==========================================================================
+   ВИПАДАЮЧЕ МЕНЮ ІНСТРУМЕНТІВ (DROPDOWN MENU) - ВИПРАВЛЕНА ВЕРСІЯ
+   ========================================================================== */
 
-.dropdown-header-link .header-links{
-    display: none;
+.dropdown-header-link {
+  position: relative;
 }
-.dropdown-header-link.open .header-links{
+
+.dropdown-header-link .header-links {
+  display: none;
+}
+
+
+  .category-name-arrow-header{
+    display: block;
+    transition: transform 0.3s ease;
+  }
+  .category-header.active .category-name-arrow-header{
+    transform: rotate(180deg);
+  }
+
+/* Десктопна версія (768px+) */
+@media (min-width: 768px) {
+  .dropdown-header-link.open .header-links {
     display: flex;
     position: absolute;
     width: max-content;
+    min-width: 300px;
     max-width: 700px;
     top: 110%;
     left: 50%;
     transform: translateX(-50%);
-    background: var(--header-bg-rgb);
-    border-radius: 0 0 20px 20px;
+    background: var(--bg-secondary);
+    border-radius: 20px;
     flex-direction: column;
-
     padding: 20px;
     box-sizing: border-box;
-    border-radius: 20px;
-    max-height: 500px;
-    overflow-y: scroll;
-    
+    max-height: 70vh; /* Використовуємо vh замість фіксованої висоти */
+    overflow-y: auto; /* auto замість scroll - скрол з'явиться тільки при потребі */
+    z-index: 9999;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  .header-links {
+    color: var(--text-primary);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    text-align: left;
+    height: auto; /* Автоматична висота */
+  }
+
+  .section-title-header-links {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: var(--text-2xl);
+    color: var(--text-primary);
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .category-header {
+    background-color: rgba(255, 255, 255, 0.05);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 25px;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .category-header:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .category-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
+  .category-name {
+    font-size: var(--text-lg);
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+
+  .category-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+  }
+
+  .category-content.open {
+    max-height: 500px; /* Обмежуємо максимальну висоту */
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .apps-grid-header {
+    padding: 10px 0 10px 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px;
+  }
+  .app-link-header {
+    display: flex;
+    align-items: center; /* Вертикальне центрування */
+    justify-content: flex-start; /* Горизонтальне вирівнювання (ліворуч) */
+    text-align: left;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+    height: 100%; /* Забезпечує висоту для центрування */
+    min-height: 40px; /* Мінімальна висота для кращого вигляду */
 }
 
-
-.app-icon{
-    height: 10px;
-    width: 10px;
+  .app-name{
+    color: var(--text-primary);
+    font-size: var(--text-base);
+    font-weight: 500;
+  }
+  .app-icon {
+  width: var(--text-2xl);
+  height: var(--text-2xl);
+  object-fit: contain;
+  color: var(--text-primary);
+}
 }
 
+/* Стилі для кнопки випадаючого меню */
+.dropdown-header-link.open .dropdown-header-link-btn {
+  color: var(--accent-secondary);
+  border-color: var(--accent-secondary);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
 
+.dropdown-arrow-header-link {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  margin-left: 5px;
+}
+
+.dropdown-arrow-header-link.active {
+  transform: rotate(180deg);
+}
+
+/* Мобільна версія (767px і менше) */
 @media (max-width: 767px) {
-        
-    .dropdown-header-link .header-links{
-        display: none;
-    }
-    .dropdown-header-link.open .header-links{
-        display: flex;
-        position: static;
-        width: max-content;
-        max-width: 700px;
-        top: 0;
-        left: 0;
-        transform: translateX(-0%);
-        background: var(--header-bg-rgb);
-        border-radius: 0 0 20px 20px;
-        flex-direction: column;
+  .dropdown-header-link.open .header-links {
+    display: flex;
+    position: static;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    flex-direction: column;
+    padding: 15px;
+    box-sizing: border-box;
+    max-height: 1000vh;
+    overflow-y: auto;
+    margin-top: 10px;
+  }
 
-        padding: 20px;
-        box-sizing: border-box;
-        border-radius: 20px;
-        max-height: 100%;
-        overflow-y: scroll;
-        
-    }
+  .header-links {
+    color: var(--header-text);
+    font-size: var(--text-sm);
+    font-weight: 500;
+
+  }
+
+  .section-title-header-links {
+    font-size: var(--text-xl);
+    color: var(--header-text);
+    text-align: left;
+    margin-bottom: 15px;
+  }
+
+  .category-header {
+    background-color: rgba(255, 255, 255, 0.08);
+    display: flex;
+    gap: 10px;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 8px;
+    font-size: var(--text-base);
+  }
+  .category-header:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+  }
+  .app-link-header {
+    display: flex;
+    align-items: center; /* Вертикальне центрування */
+    justify-content: flex-start; /* Горизонтальне вирівнювання (ліворуч) */
+    text-align: left;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+    height: 100%; /* Забезпечує висоту для центрування */
+    min-height: 40px; /* Мінімальна висота для кращого вигляду */
+    background-color: var(--header-bg);
+    padding: 10px;
+    border-radius: 10px;
+    gap: 10px;
+
+    font-size: var(--text-base);
+}
+.app-link-header:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  scale: 1.05;
+}
 
 
-    .app-icon{
-        height: 10px;
-        width: 10px;
-    }
+
+  .category-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .category-name {
+    font-size: var(--text-lg);
+    color: var(--header-text);
+  }
+
+  .category-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    opacity: 0;
+  }
+
+  .category-content.open {
+    max-height: 300px;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .apps-grid-header {
+    padding: 10px 0 10px 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px;
+  }
+  /* Додаткові утиліти */
+.app-icon {
+  width: var(--text-2xl);
+  height: var(--text-2xl);
+  object-fit: contain;
+  color: var(--header-text);
+}
+}
+
+
+/* Запобігаємо прокрутці тіла при відкритому меню */
+body.menu-open {
+  overflow: hidden;
+}
+
+/* Плавні переходи */
+.category-content,
+.dropdown-header-link .header-links {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }

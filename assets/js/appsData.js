@@ -71,16 +71,39 @@ function initLinks() {
         // ТИПИ ВИВОДУ
         // =====================
 
-        if (type === "header" || type === "footer") {
+        if (type === "header") {
             // Випадаючі категорії для шапки та футера
             content = categories.map(cat => `
                 <div class="category-dropdown">
                     <div class="category-header">
                         ${getIcon(cat.icon, 'category-icon')}
-                        <span class="category-name">${cat.name}</span>
+                        <span class="category-name-header">${cat.name}</span>
+                        <span class="category-name-arrow-header">▼</span>
                     </div>
                     <div class="category-content">
-                        <div class="apps-grid">
+                        <div class="apps-grid-header">
+                            ${cat.apps.map(app => `
+                                <a href="${app.url}" class="app-link-header">
+                                    ${getIcon(app.icon, 'app-icon')}
+                                    <span class="app-name">${app.name}</span>
+                                </a>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        else if (type === "footer") {
+            // Випадаючі категорії для шапки та футера
+            content = categories.map(cat => `
+                <div class="category-dropdown">
+                    <div class="category-footer">
+                        ${getIcon(cat.icon, 'category-icon')}
+                        <span class="category-name">${cat.name}</span>
+                        <span class="category-name-arrow">▼</span>
+                    </div>
+                    <div class="category-content">
+                        <div class="apps-grid-footer">
                             ${cat.apps.map(app => `
                                 <a href="${app.url}" class="app-link">
                                     ${getIcon(app.icon, 'app-icon')}
@@ -92,6 +115,7 @@ function initLinks() {
                 </div>
             `).join('');
         }
+
         else if (type === "category") {
             // Простий список для конкретної категорії
             const list = allApps.filter(a => a.category === category);
