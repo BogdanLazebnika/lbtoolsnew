@@ -1,0 +1,201 @@
+/* -------------------------------------------------------------
+   :::::::::  CONATCT PAGE – SPECIFIC STYLES   ::::::::::::::: |
+   1) Контейнер і заголовки
+   2) Форма
+   3) Інформаційний блок
+   4) Карта Google
+   5) Анімації, медіа‑запити
+------------------------------------------------------------- */
+
+:root {
+  /* Якщо ви зацікавлені в «тінях» лише у контактній форі – можна додати окремі змінні */
+  --contact-card-bg: var(--bg-tertiary);
+  --contact-card-shadow: 0 8px 24px var(--shadow-color);
+}
+
+/* -------------------------------------------------------------
+   1) Контейнер і заголовки
+------------------------------------------------------------- */
+
+.contact-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xl);
+  margin-top: var(--space-3xl);
+}
+
+.contact-form,
+.contact-info {
+  flex: 1 1 350px;
+  min-width: 260px; /* за замовчуванням 260 – береться із system css */
+  background: var(--contact-card-bg);
+  padding: var(--space-xl);
+  border-radius: 24px;
+  box-shadow: var(--contact-card-shadow);
+  transition: transform .3s ease, box-shadow .3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.contact-form:hover,
+.contact-info:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px var(--shadow-color);
+}
+
+/* Заголовки в колонках */
+.contact-form h2,
+.contact-info h2 {
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  margin: 0 0 var(--space-lg) 0;
+  color: var(--accent-primary);
+}
+
+/* -------------------------------------------------------------
+   2) Форма
+------------------------------------------------------------- */
+
+/* Поля форми – інпут і textarea */
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: var(--space-sm);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, .04);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: var(--text-sm);
+  transition: background .2s, border-color .2s;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  background: rgba(255, 255, 255, .1);
+}
+
+/* Кнопка відправки */
+.contact-form button.hero-btn {
+  width: 100%;
+  padding: var(--space-sm);
+  background: var(--accent-primary);
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background .2s, transform .2s;
+}
+
+.contact-form button.hero-btn:hover {
+  background: var(--accent-secondary);
+  transform: translateY(-2px);
+}
+
+/* Статус після відправлення */
+#form-status {
+  font-size: var(--text-sm);
+  color: var(--accent-success);
+  opacity: 0;
+  transition: opacity .3s;
+}
+
+#form-status.show {
+  opacity: 1;
+}
+
+/* -------------------------------------------------------------
+   3) Інформаційний блок
+------------------------------------------------------------- */
+
+.contact-info p {
+  margin: 0 0 var(--space-md) 0;
+  font-size: var(--text-lg);
+  line-height: 1.6;
+}
+
+.contact-info a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  transition: color .2s;
+}
+.contact-info a:hover { color: var(--accent-secondary); }
+
+/* Розклад підтримки */
+.contact-info ul {
+  padding-left: var(--space-lg);
+  margin: 0;
+  list-style: disc;
+}
+
+/* -------------------------------------------------------------
+   4) Карта Google
+------------------------------------------------------------- */
+
+.map-wrapper {
+  width: 100%;
+  max-width: 100%;
+  height: 400px;   /* 400px – достатньо для мобільного */
+  border-radius: 24px;
+  overflow: hidden;
+  margin-top: var(--space-3xl);
+  box-shadow: var(--contact-card-shadow);
+}
+
+.map-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Чекати: якщо ви додасте картинку placeholder… */
+.map-loading {
+  background: #e3e3e3;
+  background-size: cover;
+  background-position: center;
+}
+
+/* -------------------------------------------------------------
+   5) Анімації, медіа‑запити
+------------------------------------------------------------- */
+
+/* Відступ, коли екран маленький */
+@media (max-width: 768px){
+  .contact-wrapper {
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+  .map-wrapper { margin-top: var(--space-2xl); }
+}
+
+/* Переключення теми – те саме, що у вашому .root‑сайт використовує compile / auto‑switch, так що
+   вам нічого не треба додавати, але нижче декілька варіантів для візуального акценту */
+
+[data-theme="dark"] .contact-form,
+[data-theme="dark"] .contact-info {
+  background: rgba(255,255,255,.04);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .contact-form input,
+[data-theme="dark"] .contact-info p,
+[data-theme="dark"] .contact-form button.hero-btn {
+  color: inherit;
+}
+
+/* --------------------
+   Тіні «hover» + padding
+   -------------------- */
+.contact-form:hover,
+.contact-info:hover {
+  box-shadow: 0 12px 32px var(--shadow-color);
+}

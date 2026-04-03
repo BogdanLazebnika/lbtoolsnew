@@ -41,6 +41,7 @@ const categories = [
         name: "Зображення",
         icon: "image-ico",
         apps: [
+            { id: "category-images", name: "Головна застосунків зображень", url: "/image-apps", icon: "image-ico"},
             { id: "compress-image", name: "Стиснення зображень", url: "/image-apps/compress-image", icon: "image-ico", popular: true },
             { id: "resize-image",   name: "Зміна розміру",        url: "/image-apps/resize-image",   icon: "image-ico" },
             { id: "convert-image", name: "Конвертація формату", url: "/image-apps/convert-image", icon: "image-ico" },

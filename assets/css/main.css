@@ -2,533 +2,469 @@
    0️⃣  CSS ЗМІННІ ДЛЯ ТЕМ
    ========================================================= */
 :root {
-    /* ── ШРИФТ ------------------------------------------------ */
-    --font-family: -apple-system, BlinkMacSystemFont,
-                    'Segoe UI', Roboto, 'Helvetica Neue',
-                    Arial, sans-serif;
+  /* ── ШРИФТ ------------------------------------------------ */
+  --font-family: -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 
-    /* ── КОЛІРИ СВІТЛОЇ ТЕМИ ------------------------------- */
-    --bg-primary:      #ffffff;
-    --bg-secondary:    #c6c7c9;
-    --bg-tertiary:     #e9ecef;
+  /* ── КОЛІРИ СВІТЛОЇ ТЕМИ ------------------------------- */
+  --bg-primary:      #ffffff;
+  --bg-secondary:    #c6c7c9;
+  --bg-tertiary:     #e9ecef;
+  --text-primary:    #212529;
+  --text-secondary: #6c757d;
+  --text-muted:      #adb5bd;
+  --accent-primary:  #2c3e50;
+  --accent-secondary:#3498db;
+  --accent-success:  #28a745;
+  --accent-danger:   #dc3545;
+  --accent-warning:  #ffc107;
+  --border-color:    #dee2e6;
+  --shadow-color:    rgba(0,0,0,.1);
+  --header-bg:       #2c3e50;
+  --header-text:     #ffffff;
 
-    --text-primary:    #212529;
-    --text-secondary:  #6c757d;
-    --text-muted:       #adb5bd;
+  /* ── ФУТЕР ------------------------------------------------- */
+  --footer-bg:       #2c3e50;
+  --footer-dg-dtn:   #222;
+  --footer-text:     #ffffff;
+  --footer-link-hover:#ffcc00;
+  --light-text:      #fafafa;
 
-    --accent-primary:   #2c3e50;
-    --accent-secondary: #3498db;
-    --accent-success:   #28a745;
-    --accent-danger:    #dc3545;
-    --accent-warning:   #ffc107;
+  /* ── ФОН СТОРІНКИ ---------------------------------------- */
+  --page-bg-image:   url('/assets/img/background/background-white-tems.svg');
 
-    --border-color:    #dee2e6;
-    --shadow-color:    rgba(0,0,0,.1);
+  /* ── ПОСИЛАННЯ -------------------------------------------- */
+  --link-color:      #3498db;
+  --link-hover:      #2980b9;
 
-    --header-bg:       #2c3e50;
-    --header-text:     #ffffff;
+  /* ── ТИПОГРАФІЯ ------------------------------------------- */
+  --text-xs:   .75rem;
+  --text-sm:   .875rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.25rem;
+  --text-2xl:  1.5rem;
+  --text-3xl:  1.875rem;
+  --text-4xl:  2.25rem;
+  --text-5xl:  3rem;
+  --text-6xl:  3.75rem;
 
-    /* ── ФУТЕР ------------------------------------------------- */
-    --footer-bg:       #2c3e50;   /* фон самого футера                */
-    --footer-dg-dtn:   #222;      /* "темна ділянка" – блоки, випадаки */
-    --footer-text:    #ffffff;
-    --footer-link-hover:#ffcc00;  /* колір посилання у hover           */
-    --light-text:      #fafafa;   /* колір для заголовків секцій      */
+  /* ── ВІДСТУПИ ---------------------------------------------- */
+  --space-xs: .25rem;
+  --space-sm: .5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl:3rem;
+  --space-3xl:4rem;
 
-    /* ── ФОН СТОРІНКИ ---------------------------------------- */
-    --page-bg-image:   url('/assets/img/background/background-white-tems.svg');
-
-    /* ── ПОСИЛАННЯ ------------------------------------------- */
-    --link-color:      #3498db;
-    --link-hover:      #2980b9;
-
-    /* ── ТИПОГРАФІЯ ---------------------------------------- */
-    --text-xs:   .75rem;   /* 12px */
-    --text-sm:   .875rem;  /* 14px */
-    --text-base: 1rem;     /* 16px */
-    --text-lg:   1.125rem;/* 18px */
-    --text-xl:   1.25rem; /* 20px */
-    --text-2xl:  1.5rem;  /* 24px */
-    --text-3xl:  1.875rem;/* 30px */
-    --text-4xl:  2.25rem; /* 36px */
-    --text-5xl:  3rem;    /* 48px */
-    --text-6xl:  3.75rem; /* 60px */
-
-    /* ── ВІДСТУПИ ------------------------------------------ */
-    --space-xs: .25rem;   /* 4px  */
-    --space-sm: .5rem;    /* 8px  */
-    --space-md: 1rem;     /* 16px */
-    --space-lg: 1.5rem;   /* 24px */
-    --space-xl: 2rem;     /* 32px */
-    --space-2xl:3rem;     /* 48px */
-    --space-3xl:4rem;     /* 64px */
-
-    /* RGB‑змінні – коли потрібен rgba() з opacity */
-    --header-bg-rgb: 44, 62, 80;
-    --accent-secondary-rgb: 52, 152, 219;
+  /* ── RGB‑змінні ------------------------------------------ */
+  --header-bg-rgb: 44, 62, 80;
+  --accent-secondary-rgb: 52, 152, 219;
 }
 
-/* ── ТЕМНА ТЕМА ───────────────────────────────────────────────────── */
+/* Темна тема ------------------------------------------------ */
 [data-theme="dark"] {
-    /* Основні кольори */
-    --bg-primary:   #1a1d21;
-    --bg-secondary: #2d3136;
-    --bg-tertiary: #3d4248;
+  --bg-primary:   #1a1d21;
+  --bg-secondary: #2d3136;
+  --bg-tertiary: #3d4248;
+  --text-primary: #e9ecef;
+  --text-secondary:#adb5bd;
+  --text-muted:#6c757d;
+  --accent-primary:#3498db;
+  --accent-secondary:#5dade2;
+  --accent-success:#58d68d;
+  --accent-danger:#f1948a;
+  --accent-warning:#f7dc6f;
+  --border-color:#495057;
+  --shadow-color:rgba(0,0,0,.3);
+  --header-bg:#1a252f;
+  --header-text:#ffffff;
 
-    --text-primary: #e9ecef;
-    --text-secondary:#adb5bd;
-    --text-muted:   #6c757d;
+  --footer-bg:       #1a1a1a;
+  --footer-dg-dtn:   #111111;
+  --footer-text:    #e0e0e0;
+  --footer-link-hover:#ffb400;
+  --light-text:      #fafafa;
 
-    --accent-primary:#3498db;
-    --accent-secondary:#5dade2;
-    --accent-success:#58d68d;
-    --accent-danger:#f1948a;
-    --accent-warning:#f7dc6f;
+  --page-bg-image: url('/assets/img/background/background-black-tems.svg');
 
-    --border-color:#495057;
-    --shadow-color:rgba(0,0,0,.3);
-
-    --header-bg:#1a252f;
-    --header-bg-rgb:26,37,47;
-    --header-text:#ffffff;
-
-    /* ФУТЕР – темна палітра */
-    --footer-bg:       #1a1a1a;      /* темний фон футера                */
-    --footer-dg-dtn:   #111111;     /* темна ділянка – блоки, випадаки   */
-    --footer-text:    #e0e0e0;      /* колір тексту у футері             */
-    --footer-link-hover:#ffb400;   /* hover‑колір посилання              */
-    --light-text:      #fafafa;    /* саме для заголовків секцій */
-
-    /* ФОН СТОРІНКИ */
-    --page-bg-image: url('/assets/img/background/background-black-tems.svg');
-
-    /* ПОСИЛАННЯ */
-    --link-color:#5dade2;
-    --link-hover:#85c1e9;
+  --link-color:#5dade2;
+  --link-hover:#85c1e9;
 }
 
-/* ── СИСТЕМНА ТЕМА (авто‑перемикач) ─────────────────────────────── */
+/* Системна тема (авто‑перемикач) --------------------------- */
 @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-        --bg-primary:   #1a1d21;
-        --bg-secondary:#2d3136;
-        --bg-tertiary: #3d4248;
-        --text-primary:#e9ecef;
-        --text-secondary:#adb5bd;
-        --text-muted:#6c757d;
-        --page-bg-image: url('/assets/img/background/background-black-tems.svg');
-    }
+  :root:not([data-theme="light"]) {
+    --bg-primary:   #1a1d21;
+    --bg-secondary:#2d3136;
+    --bg-tertiary: #3d4248;
+    --text-primary:#e9ecef;
+    --text-secondary:#adb5bd;
+    --text-muted:#6c757d;
+    --page-bg-image: url('/assets/img/background/background-black-tems.svg');
+  }
 }
 
 /* =========================================================
    1️⃣  АДАПТИВНІ РОЗМІРИ ТЕКСТУ / ВІДСТУПІВ (медіа‑запити)
    ========================================================= */
-@media (min-width:1440px){ :root{--text-base:1.125rem;--text-lg:1.25rem;--text-xl:1.5rem;--text-2xl:1.875rem;--text-3xl:2.25rem;--text-4xl:3rem;--text-5xl:3.75rem;--text-6xl:4.5rem;} }
-@media (max-width:1023px){ :root{--text-xs:.75rem;--text-sm:.8125rem;--text-base:.9375rem;--text-lg:1.0625rem;--text-xl:1.1875rem;--text-2xl:1.375rem;--text-3xl:1.625rem;--text-4xl:1.875rem;--text-5xl:2.25rem;--text-6xl:2.75rem;} }
-@media (max-width:767px){  :root{--text-xs:.6875rem;--text-sm:.75rem;--text-base:.875rem;--text-lg:1rem;--text-xl:1.125rem;--text-2xl:1.25rem;--text-3xl:1.5rem;--text-4xl:1.75rem;--text-5xl:2rem;--text-6xl:2.5rem;--space-md:.75rem;--space-lg:1.25rem;--space-xl:1.5rem;--space-2xl:2rem;--space-3xl:3rem;} }
-@media (max-width:479px){  :root{--text-xs:.625rem;--text-sm:.6875rem;--text-base:.8125rem;--text-lg:.9375rem;--text-xl:1.0625rem;--text-2xl:1.1875rem;--text-3xl:1.375rem;--text-4xl:1.5rem;--text-5xl:1.75rem;--text-6xl:2rem;--space-md:.5rem;--space-lg:1rem;--space-xl:1.25rem;--space-2xl:1.5rem;--space-3xl:2rem;} }
+@media (min-width:1440px){
+  :root{
+    --text-base:1.125rem;
+    --text-lg:1.25rem;
+    --text-xl:1.5rem;
+    --text-2xl:1.875rem;
+    --text-3xl:2.25rem;
+    --text-4xl:3rem;
+    --text-5xl:3.75rem;
+    --text-6xl:4.5rem;
+  }
+}
+@media (max-width:1023px){
+  :root{
+    --text-xs:.75rem;
+    --text-sm:.8125rem;
+    --text-base:.9375rem;
+    --text-lg:1.0625rem;
+    --text-xl:1.1875rem;
+    --text-2xl:1.375rem;
+    --text-3xl:1.625rem;
+    --text-4xl:1.875rem;
+    --text-5xl:2.25rem;
+    --text-6xl:2.75rem;
+  }
+}
+@media (max-width:767px){
+  :root{
+    --text-xs:.6875rem;
+    --text-sm:.75rem;
+    --text-base:.875rem;
+    --text-lg:1rem;
+    --text-xl:1.125rem;
+    --text-2xl:1.25rem;
+    --text-3xl:1.5rem;
+    --text-4xl:1.75rem;
+    --text-5xl:2rem;
+    --text-6xl:2.5rem;
+    --space-md:.75rem;
+    --space-lg:1.25rem;
+    --space-xl:1.5rem;
+    --space-2xl:2rem;
+    --space-3xl:3rem;
+  }
+}
+@media (max-width:479px){
+  :root{
+    --text-xs:.625rem;
+    --text-sm:.6875rem;
+    --text-base:.8125rem;
+    --text-lg:.9375rem;
+    --text-xl:1.0625rem;
+    --text-2xl:1.1875rem;
+    --text-3xl:1.375rem;
+    --text-4xl:1.5rem;
+    --text-5xl:1.75rem;
+    --text-6xl:2rem;
+    --space-md:.5rem;
+    --space-lg:1rem;
+    --space-xl:1.25rem;
+    --space-2xl:1.5rem;
+    --space-3xl:2rem;
+  }
+}
 
 /* =========================================================
    2️⃣  БОКС‑САЙЗІНГ, БАЗОВІ СТИЛІ
    ========================================================= */
-*,*::before,*::after{box-sizing:border-box;}
-html{scroll-behavior:smooth;min-height:100vh;display:flex;background-color:var(--bg-primary);background-image:var(--page-bg-image);background-size:cover;background-attachment:fixed;background-position:center;color:var(--text-primary);transition:all .3s ease;}
-body{margin:auto;max-width:1444px;width:100%;padding:var(--text-6xl) 0;overflow-x:hidden;position:relative;font-family:var(--font-family);background-image:var(--page-bg-image);background-size:cover;background-attachment:fixed;background-position:center;color:var(--text-primary);line-height:1.6;transition:all .3s ease;}
-main{background-color:var(--bg-primary);}
+*, *::before, *::after{box-sizing:border-box;}
+
+html{
+  /* Намай вміним "smooth" це не дуже; обмежаємо лише body */
+  min-height:100vh;
+  background-color:var(--bg-primary);
+  background-image:var(--page-bg-image);
+  background-size:cover;
+  background-position:center;
+  /* Фіксований фон залишено – він працює без CSS-залип. */
+  background-attachment:fixed;
+  color:var(--text-primary);
+}
+
+body{
+  margin:auto;
+  max-width:1444px;
+  width:100%;
+  padding:var(--text-6xl) 0;
+  overflow-x:hidden;
+  position:relative;
+  font-family:var(--font-family);
+  color:var(--text-primary);
+  line-height:1.6;
+  /* Плавне прокручування – лише в межах body   */
+  scroll-behavior:smooth;
+}
+
+main{
+  background-color:var(--bg-primary);
+}
 
 /* Адаптивна ширина body */
 @media (max-width:1440px){body{max-width:1200px;}}
 @media (max-width:1200px){body{max-width:1023px;}}
 @media (max-width:1023px){body{max-width:900px;}}
 @media (max-width:900px){body{max-width:767px;}}
-@media (max-width:767px){body{max-width:100vw;padding:0;}}
-@media (max-width:767px){main{min-height:100vh;}}
+@media (max-width:767px){
+  body{max-width:100vw;padding:0;}
+  main{min-height:100vh;}
+}
 
-/* -------------------------------------------------
-   Анімації
-   ------------------------------------------------- */
-.fade-in{opacity:0;animation:fadeIn .6s ease forwards;}
-.slide-up{opacity:0;transform:translateY(30px);animation:slideUp .6s ease forwards;}
-.slide-down{opacity:0;transform:translateY(-30px);animation:slideDown .6s ease forwards;}
-.slide-left{opacity:0;transform:translateX(30px);animation:slideLeft .6s ease forwards;}
-.slide-right{opacity:0;transform:translateX(-30px);animation:slideRight .6s ease forwards;}
-.scale-in{opacity:0;transform:scale(.8);animation:scaleIn .6s ease forwards;}
-.bounce-in{opacity:0;transform:scale(.3);animation:bounceIn .6s ease forwards;}
-@keyframes fadeIn{to{opacity:1}}
-@keyframes slideUp{to{opacity:1;transform:translateY(0)}}
-@keyframes slideDown{to{opacity:1;transform:translateY(0)}}
-@keyframes slideLeft{to{opacity:1;transform:translateX(0)}}
-@keyframes slideRight{to{opacity:1;transform:translateX(0)}}
-@keyframes scaleIn{to{opacity:1;transform:scale(1)}}
-@keyframes bounceIn{0%{opacity:0;transform:scale(.3)}50%{opacity:1;transform:scale(1.05)}70%{transform:scale(.9)}100%{opacity:1;transform:scale(1)}}
-.delay-1{animation-delay:.1s}.delay-2{animation-delay:.2s}.delay-3{animation-delay:.3s}.delay-4{animation-delay:.4s}.delay-5{animation-delay:.5s}
+/* ----------------------------------------------------
+   Утиліти                                     */
+.visually-hidden{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+}
+.focus-visible:focus{
+  outline:2px solid var(--accent-secondary);
+  outline-offset:2px;
+}
 
-/* -------------------------------------------------
-   Утиліти
-   ------------------------------------------------- */
-.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
-.focus-visible:focus{outline:2px solid var(--accent-secondary);outline-offset:2px;}
-
-/* -------------------------------------------------
-   Кастомний скролбар
-   ------------------------------------------------- */
+/* ----------------------------------------------------
+   Кастомний скролбар                         */
 ::-webkit-scrollbar{width:6px;height:6px;}
 ::-webkit-scrollbar-track{background:transparent;margin:20px 0;border-radius:3px;}
 ::-webkit-scrollbar-thumb{background:var(--accent-secondary);border-radius:3px;}
 ::-webkit-scrollbar-thumb:hover{background:var(--accent-secondary);}
 ::-webkit-scrollbar-button{display:none;}
 
-/* -------------------------------------------------
-   Запобігання скролу (модаль)
-   ------------------------------------------------- */
-.no-scroll{overflow:hidden;position:fixed;width:100%;height:100%;top:0;left:0;}
-
-
-
-
-main{
-   padding: var(--space-xl) var(--space-lg);
+/* ----------------------------------------------------
+   Запобігання скролу (модаль)                  */
+.no-scroll{
+  overflow:hidden;
+  position:fixed;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
 }
-
-
 
 /* =========================================================
-   🎨 СПЕЦИФІЧНІ СТИЛІ ДЛЯ РІЗНИХ ТИПІВ БЛОКІВ
+   3️⃣  СПЕЦИФІЧНІ СТИЛІ ДЛЯ ДОДАТКІВ
    ========================================================= */
-
-   .section-title-all-apps{
-      color: var(--text-primary);
-      font-size: var(--text-3xl);
-      font-weight: 600;
-      text-align: center;
-      text-transform: uppercase;
-   }
-
-/* ─────────────────────────────────────────────────────────
-   📋 ВСІ ДОДАТКИ (type="all")
-   ───────────────────────────────────────────────────────── */
-
-
-
-.all-apps-container {
-    width: 100%;
-    max-width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2xl);
+main{
+  padding:var(--space-xl) var(--space-lg);
 }
 
-.category-group-all {
-    background: var(--bg-primary);
-    border-radius: 24px;
-    padding: var(--space-xl);
-    transition: all 0.3s ease;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 2px 8px var(--shadow-color);
+/* Заголовок секції */
+.section-title-all-apps{
+  color:var(--text-primary);
+  font-size:var(--text-3xl);
+  font-weight:600;
+  text-align:center;
+  text-transform:uppercase;
 }
 
-.category-group-all:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px var(--shadow-color);
+/* 📋 ВСІ ДОДАТКИ (type="all") */
+.all-apps-container{
+  width:100%;
+  max-width:100%;
+  display:flex;
+  flex-direction:column;
+  gap:var(--space-2xl);
+}
+.category-group-all{
+  background:var(--bg-primary);
+  border-radius:24px;
+  padding:var(--space-xl);
+  border:1px solid var(--border-color);
+  box-shadow:0 2px 8px var(--shadow-color);
+  transition:all .3s ease;
+}
+.category-group-all:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 24px var(--shadow-color);
+}
+.category-title-all{
+  display:flex;
+  align-items:center;
+  gap:var(--space-md);
+  margin-bottom:var(--space-xl);
+  padding-bottom:var(--space-md);
+  border-bottom:2px solid var(--accent-secondary);
+}
+.category-icon-all{width:32px;height:32px;fill:var(--accent-secondary);}
+.category-name-all{
+  font-size:var(--text-xl);
+  font-weight:600;
+  margin:0;
+  color:var(--text-primary);
+  flex:1;
+}
+.category-count-all{
+  font-size:var(--text-sm);
+  color:var(--text-muted);
+  background:var(--bg-secondary);
+  padding:4px 12px;
+  border-radius:20px;
+}
+.apps-grid-all{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:var(--space-md);
+}
+.app-link-all{
+  display:flex;
+  align-items:center;
+  gap:var(--space-md);
+  padding:var(--space-md) var(--space-lg);
+  background:var(--bg-secondary);
+  border-radius:16px;
+  text-decoration:none;
+  transition:all .3s ease;
+  border:1px solid transparent;
+}
+.app-link-all:hover{
+  background:var(--bg-tertiary);
+  border-color:var(--accent-secondary);
+  box-shadow:none;
+}
+.app-icon-all{width:28px;height:28px;color:var(--accent-secondary);flex-shrink:0;}
+.app-info-all{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:var(--space-sm);
+}
+.app-name-all{font-size:var(--text-base);font-weight:500;color:var(--text-primary);}
+.popular-badge-all{
+  font-size:var(--text-xs);
+  background:linear-gradient(135deg,#ff6b6b,#ff8e53);
+  color:white;
+  padding:4px 10px;
+  border-radius:20px;
+  font-weight:600;
 }
 
-.category-title-all {
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
-    margin-bottom: var(--space-xl);
-    padding-bottom: var(--space-md);
-    border-bottom: 2px solid var(--accent-secondary);
-    position: relative;
+/* 📂 ДОДАТКИ КАТЕГОРІЇ (type="category") */
+.category-simple-list{
+  display:flex;
+  flex-direction:column;
+  gap:var(--space-sm);
+  width:100%;
+}
+.app-link-category{
+  display:flex;
+  align-items:center;
+  gap:var(--space-md);
+  padding:var(--space-md) var(--space-lg);
+  background:linear-gradient(135deg,var(--bg-secondary) 0%,var(--bg-tertiary) 100%);
+  border-radius:16px;
+  text-decoration:none;
+  transition:all .3s ease;
+  border-left:3px solid transparent;
+  position:relative;
+  overflow:hidden;
+}
+.app-link-category::before{
+  content:'';
+  position:absolute;
+  top:0;left:-100%;
+  width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(var(--accent-secondary-rgb),0.1),transparent);
+  transition:left .5s ease;
+}
+.app-link-category:hover::before{left:100%;}
+.app-link-category:hover{
+  border-left-color:var(--accent-secondary);
+  background:var(--bg-tertiary);
+}
+.app-icon-category{width:26px;height:26px;fill:var(--accent-secondary);flex-shrink:0;}
+.app-name-category{flex:1;font-size:var(--text-base);font-weight:500;color:var(--text-primary);}
+.popular-badge-category{
+  font-size:var(--text-xs);
+  background:var(--accent-warning);
+  color:var(--text-primary);
+  padding:4px 10px;
+  border-radius:20px;
+  font-weight:600;
 }
 
-.category-icon-all {
-    width: 32px;
-    height: 32px;
-    fill: var(--accent-secondary);
+/* 🔗 СХОЖІ ДОДАТКИ (type="related") */
+.related-simple-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--space-md);
+  width:100%;
+}
+.app-link-related{
+  display:flex;
+  align-items:center;
+  gap:var(--space-sm);
+  padding:var(--space-sm) var(--space-lg);
+  background:var(--bg-secondary);
+  border-radius:40px;
+  text-decoration:none;
+  transition:all .3s ease;
+  border:1px solid transparent;
+  flex:1;min-width:200px;
+}
+.app-link-related:hover{
+  background:var(--accent-secondary);
+  border-color:var(--accent-secondary);
+  box-shadow:none;
+}
+.app-link-related:hover .app-icon-related{fill:white;}
+.app-link-related:hover .app-name-related{color:white;}
+.app-icon-related{width:22px;height:22px;fill:var(--accent-secondary);flex-shrink:0;transition:fill .3s ease;}
+.app-name-related{font-size:var(--text-sm);font-weight:500;color:var(--text-primary);transition:color .3s ease;}
+
+/* 📱 АДАПТИВНІСТЬ */
+@media (max-width:768px){
+  .category-group-all{padding:var(--space-lg);border-radius:20px;}
+  .apps-grid-all{grid-template-columns:1fr;gap:var(--space-sm);}
+  .app-info-all{flex-wrap:wrap;}
+  .app-link-category,.app-link-all{padding:var(--space-sm) var(--space-md);}
+  .app-link-related{min-width:150px;padding:var(--space-sm) var(--space-md);}
+  .category-title-all{flex-wrap:wrap;}
+  .category-count-all{margin-left:auto;}
+}
+@media (max-width:480px){
+  .app-link-related{min-width:100%;}
+  .popular-badge-all,.popular-badge-category{font-size:10px;padding:2px 8px;}
 }
 
-.category-name-all {
-    font-size: var(--text-xl);
-    font-weight: 600;
-    margin: 0;
-    color: var(--text-primary);
-    flex: 1;
-}
-
-.category-count-all {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    background: var(--bg-secondary);
-    padding: 4px 12px;
-    border-radius: 20px;
-}
-
-.apps-grid-all {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: var(--space-md);
-}
-
-.app-link-all {
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
-    padding: var(--space-md) var(--space-lg);
-    background: var(--bg-secondary);
-    border-radius: 16px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border: 1px solid transparent;
-}
-
-.app-link-all:hover {
-    transform: translateX(6px);
-    background: var(--bg-tertiary);
-    border-color: var(--accent-secondary);
-    box-shadow: 0 4px 12px rgba(var(--accent-secondary-rgb), 0.2);
-}
-
-.app-icon-all {
-    width: 28px;
-    height: 28px;
-    fill: var(--accent-secondary);
-    flex-shrink: 0;
-}
-
-.app-info-all {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-sm);
-}
-
-.app-name-all {
-    font-size: var(--text-base);
-    font-weight: 500;
-    color: var(--text-primary);
-}
-
-.popular-badge-all {
-    font-size: var(--text-xs);
-    background: linear-gradient(135deg, #ff6b6b, #ff8e53);
-    color: white;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-weight: 600;
-}
-
-/* ─────────────────────────────────────────────────────────
-   📂 ДОДАТКИ КАТЕГОРІЇ (type="category")
-   ───────────────────────────────────────────────────────── */
-.category-simple-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
-    width: 100%;
-}
-
-.app-link-category {
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
-    padding: var(--space-md) var(--space-lg);
-    background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
-    border-radius: 16px;
-    text-decoration: none;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border-left: 3px solid transparent;
-    position: relative;
-    overflow: hidden;
-}
-
-.app-link-category::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(var(--accent-secondary-rgb), 0.1), transparent);
-    transition: left 0.5s ease;
-}
-
-.app-link-category:hover::before {
-    left: 100%;
-}
-
-.app-link-category:hover {
-    transform: translateX(8px);
-    border-left-color: var(--accent-secondary);
-    background: var(--bg-tertiary);
-}
-
-.app-icon-category {
-    width: 26px;
-    height: 26px;
-    fill: var(--accent-secondary);
-    flex-shrink: 0;
-}
-
-.app-name-category {
-    flex: 1;
-    font-size: var(--text-base);
-    font-weight: 500;
-    color: var(--text-primary);
-}
-
-.popular-badge-category {
-    font-size: var(--text-xs);
-    background: var(--accent-warning);
-    color: var(--text-primary);
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-weight: 600;
-}
-
-/* ─────────────────────────────────────────────────────────
-   🔗 СХОЖІ ДОДАТКИ (type="related")
-   ───────────────────────────────────────────────────────── */
-.related-simple-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-md);
-    width: 100%;
-}
-
-.app-link-related {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    padding: var(--space-sm) var(--space-lg);
-    background: var(--bg-secondary);
-    border-radius: 40px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    border: 1px solid transparent;
-    flex: 1;
-    min-width: 200px;
-}
-
-.app-link-related:hover {
-    transform: translateY(-2px);
-    background: var(--accent-secondary);
-    border-color: var(--accent-secondary);
-    box-shadow: 0 6px 16px rgba(var(--accent-secondary-rgb), 0.3);
-}
-
-.app-link-related:hover .app-icon-related {
-    fill: white;
-}
-
-.app-link-related:hover .app-name-related {
-    color: white;
-}
-
-.app-icon-related {
-    width: 22px;
-    height: 22px;
-    fill: var(--accent-secondary);
-    flex-shrink: 0;
-    transition: fill 0.3s ease;
-}
-
-.app-name-related {
-    font-size: var(--text-sm);
-    font-weight: 500;
-    color: var(--text-primary);
-    transition: color 0.3s ease;
-}
-
-/* ─────────────────────────────────────────────────────────
-   📱 АДАПТИВНІСТЬ
-   ───────────────────────────────────────────────────────── */
-@media (max-width: 768px) {
-    .category-group-all {
-        padding: var(--space-lg);
-        border-radius: 20px;
-    }
-    
-    .apps-grid-all {
-        grid-template-columns: 1fr;
-        gap: var(--space-sm);
-    }
-    
-    .app-info-all {
-        flex-wrap: wrap;
-    }
-    
-    .app-link-category,
-    .app-link-all {
-        padding: var(--space-sm) var(--space-md);
-    }
-    
-    .app-link-related {
-        min-width: 150px;
-        padding: var(--space-sm) var(--space-md);
-    }
-    
-    .category-title-all {
-        flex-wrap: wrap;
-    }
-    
-    .category-count-all {
-        margin-left: auto;
-    }
-}
-
-@media (max-width: 480px) {
-    .app-link-related {
-        min-width: 100%;
-    }
-    
-    .popular-badge-all,
-    .popular-badge-category {
-        font-size: 10px;
-        padding: 2px 8px;
-    }
-}
-
-/* Анімації для нових блоків */
+/* =========================================================
+   Анімації (включено завжди)                         */
 .category-simple-list .app-link-category,
 .related-simple-list .app-link-related,
-.category-group-all {
-    animation: slideInFromLeft 0.5s ease forwards;
-    opacity: 0;
+.category-group-all{
+  animation:slideInFromLeft .5s ease forwards;
+  opacity:0;
+}
+@keyframes slideInFromLeft{
+  from{opacity:0;transform:translateX(-20px);}
+  to{opacity:1;transform:translateX(0);}
 }
 
-@keyframes slideInFromLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+/* Затримки */
+.category-simple-list .app-link-category:nth-child(n){
+  animation-delay:calc(0.05s * var(--index,1));
+}
+.related-simple-list .app-link-related:nth-child(n){
+  animation-delay:calc(0.03s * var(--index,1));
 }
 
-/* Затримки для елементів */
-.category-simple-list .app-link-category:nth-child(n) {
-    animation-delay: calc(0.05s * var(--index, 1));
-}
-
-.related-simple-list .app-link-related:nth-child(n) {
-    animation-delay: calc(0.03s * var(--index, 1));
-}
-
-/* Стилі для порожніх станів */
+/* Порожні секції */
 .category-simple-list:empty::before,
-.related-simple-list:empty::before {
-    content: '📭 Немає доступних додатків';
-    display: block;
-    text-align: center;
-    padding: var(--space-xl);
-    color: var(--text-muted);
-    font-size: var(--text-lg);
-    background: var(--bg-secondary);
-    border-radius: 16px;
+.related-simple-list:empty::before{
+  content:'📭 Немає доступних додатків';
+  display:block;
+  text-align:center;
+  padding:var(--space-xl);
+  color:var(--text-muted);
+  font-size:var(--text-lg);
+  background:var(--bg-secondary);
+  border-radius:16px;
 }
-
-

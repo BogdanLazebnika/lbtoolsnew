@@ -2,6 +2,7 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <meta name="description" content="LB Tools — найкращий безкоштовний онлайн сервіс для стиснення фото, відео, PDF, обрізки, зміни формату та розділення файлів. Працює без реєстрації, водяних знаків та обмежень. Зменшіть розмір будь-якого файлу за 5 секунд!">
     <meta name="keywords" content="стиснути відео, зменшити вагу фото, стиснути PDF онлайн, обрізати відео, змінити формат зображення, розділити PDF, онлайн інструменти, стиснення без втрати якості, compress video, optimize image, reduce file size">
@@ -9,14 +10,15 @@
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <meta name="googlebot" content="index, follow">
     <meta name="yandex" content="index, follow">
-    <link rel="canonical" href="https://lbtools.com/">
+    <link rel="canonical" href="https://lbtools.site/">
+    
     
     <!-- Open Graph для соціальних мереж -->
     <meta property="og:title" content="LB Tools — Стиснення фото, відео та PDF онлайн">
     <meta property="og:description" content="Зменшуйте розміри файлів без втрати якості. Безкоштовно, швидко та безпечно. Понад 1 млн задоволених користувачів.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://lbtools.com/">
-    <meta property="og:image" content="https://lbtools.com/assets/img/og-image.jpg">
+    <meta property="og:url" content="https://lbtools.site/">
+    <meta property="og:image" content="https://lbtools.site/assets/img/og-image.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="uk_UA">
@@ -26,7 +28,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="LB Tools — Стиснення фото, відео та PDF онлайн">
     <meta name="twitter:description" content="Безкоштовний онлайн сервіс для роботи з файлами. Стискай, обрізай, змінюй формат!">
-    <meta name="twitter:image" content="https://lbtools.com/assets/img/twitter-image.jpg">
+    <meta name="twitter:image" content="https://lbtools.site/assets/img/twitter-image.jpg">
     
     <title>LB Tools | №1 Безкоштовне стиснення фото, відео та PDF онлайн | Зменш розмір файлу за 5 секунд</title>
     
@@ -49,7 +51,7 @@
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "LB Tools",
-      "url": "https://lbtools.com/",
+      "url": "https://lbtools.site/",
       "description": "Безкоштовний онлайн сервіс для стиснення фото, відео, PDF, обрізки та зміни формату файлів",
       "applicationCategory": "MultimediaTool",
       "operatingSystem": "All",
@@ -105,7 +107,7 @@
           "@type": "ListItem",
           "position": 1,
           "name": "Головна",
-          "item": "https://lbtools.com/"
+          "item": "https://lbtools.site/"
         }
       ]
     }
@@ -142,6 +144,17 @@
         }
       ]
     }
+    </script>
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6LVE8QSVSM"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-6LVE8QSVSM');
     </script>
 </head>
 <body class="fade-in">
@@ -191,7 +204,7 @@
             
             <!-- Всі додатки (сюди буде скрол) -->
             <section id="tools-section">
-                <h2 class="section-title-all-apps">⚡ Всі інструменти LB Tools для роботи з файлами</h2>
+                <h2 class="section-title-all-apps">Всі інструменти LB Tools для роботи з файлами</h2>
                 <div class="apps-container" data-links="all"></div>
             </section>
             
@@ -405,5 +418,18 @@
             el.style.animationDelay = `${idx * 0.05}s`;
         });
     </script>
+
+    <script>
+    // Перевірка чи підвантажились стилі (для дебагу на хостингу)
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('LB Tools - сайт завантажено успішно');
+        
+        // Перевірка чи є контейнер для додатків
+        const appsContainer = document.querySelector('.apps-container');
+        if(appsContainer && appsContainer.children.length === 0) {
+            console.warn('Немає додатків в контейнері. Перевірте main.js');
+        }
+    });
+</script>
 </body>
 </html>
