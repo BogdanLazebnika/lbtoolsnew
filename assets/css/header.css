@@ -326,30 +326,60 @@
 }
 
 /* ===== DROPDOWN MENU STYLES ===== */
+
 .dropdown-header-link {
     position: relative;
-    
-    .header-links {
-        display: none;
-    }
-    
-    &.open {
-        .header-links {
-            display: flex;
-        }
-        
-        .dropdown-header-link-btn {
-            color: var(--accent-secondary);
-            border-color: var(--accent-secondary);
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .dropdown-arrow-header-link {
-            transform: rotate(180deg);
-        }
-    }
 }
+
+/* Контейнер */
+.dropdown-header-link {
+    position: relative;
+}
+
+/* Меню */
+.dropdown-header-link .header-links {
+    position: absolute; /* 🔥 ключ */
+    top: 100%;
+    left: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+
+    transition: opacity 0.25s ease, transform 0.25s ease;
+
+    /* щоб не скакало */
+    will-change: transform, opacity;
+}
+
+/* Відкрито */
+.dropdown-header-link.open .header-links {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* Кнопка в стані open */
+.dropdown-header-link.open .dropdown-header-link-btn {
+    color: var(--accent-secondary);
+    border-color: var(--accent-secondary);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+.dropdown-arrow-header-link{
+    transition: transform 0.3s ease;
+    display: inline-flex;
+}
+/* Стрілка */
+.dropdown-arrow-header-link.active {
+    transform: rotate(180deg);
+}
+
+
+
 
 .category-name-arrow-header {
     display: block;
@@ -446,7 +476,7 @@
     .apps-grid-header {
         padding: 10px 0 10px 10px;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 8px;
     }
     
@@ -489,17 +519,30 @@
 
 /* Mobile dropdown */
 @media (max-width: 767px) {
-    .dropdown-header-link.open .header-links {
+    .dropdown-header-link .header-links {
         position: static;
         width: 100%;
+
+        display: flex;
+        flex-direction: column;
+
         background: rgba(255, 255, 255, 0.05);
         border-radius: 12px;
-        flex-direction: column;
+        margin: 0;
+        padding: 0 15px;
+
+        /* 🔥 головне */
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+
+        transition: max-height 0.3s ease, opacity 0.25s ease, padding 0.3s ease;
+    }
+
+        .dropdown-header-link.open .header-links {
+        max-height: 500px; /* нормальне значення */
+        opacity: 1;
         padding: 15px;
-        box-sizing: border-box;
-        max-height: 1000vh;
-        overflow-y: auto;
-        margin-top: 10px;
     }
     
     .header-links {

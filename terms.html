@@ -51,11 +51,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://www.google-analytics.com">
   <link rel="preconnect" href="https://www.googletagmanager.com">
-  <link rel="stylesheet" href="assets/css/reset.css">
-  <link rel="stylesheet" href="assets/css/main.css">
-  <link rel="stylesheet" href="assets/css/header.css">
-  <link rel="stylesheet" href="assets/css/footer.css">
-  <link rel="stylesheet" href="assets/css/terms.css">
+
+  <link rel="stylesheet" href="/assets/css/reset.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/header.css">
+  <link rel="stylesheet" href="/assets/css/footer.css">
+  <link rel="stylesheet" href="/assets/css/terms.css">
 
   <!-- Schema.org – TermsAndConditions -->
   <script type="application/ld+json">
@@ -68,98 +69,6 @@
   }
   </script>
 
-  <style>
-    /* --------------------------------------------------------
-   1️⃣  HERO section – використовуємо ті ж правила, що у privacy.css
-   -------------------------------------------------------- */
-.hero-block{
-  text-align:center;
-  padding:var(--space-3xl) var(--space-xl);
-  background:linear-gradient(135deg,var(--accent-primary),var(--accent-secondary));
-  border-radius:32px;
-  margin-bottom:var(--space-2xl);
-  color:#fff;
-  position:relative; overflow:hidden;
-}
-.hero-block::before{
-  content:'';
-  position:absolute;
-  top:-50%; right:-50%;
-  width:200%; height:200%;
-  background:radial-gradient(circle,rgba(255,255,255,.15) 0%,transparent 70%);
-  animation:rotateBg 25s linear infinite;
-}
-.hero-block h1{
-  font-size:var(--text-5xl);
-  margin-bottom:var(--space-lg);
-}
-.hero-block p{
-  font-size:var(--text-lg);
-  max-width:750px; margin:0 auto var(--space-xl);
-  opacity:.95;
-  color:#fff;
-}
-
-/* --------------------------------------------------------
-   2️⃣  Breadcrumbs
-   -------------------------------------------------------- */
-.breadcrumbs{
-  margin-bottom:var(--space-lg);
-  font-size:var(--text-sm);
-  color:var(--text-muted);
-}
-.breadcrumbs a{color:var(--accent-secondary);}
-.breadcrumbs a:hover{text-decoration:underline;}
-
-/* --------------------------------------------------------
-   3️⃣  Terms section
-   -------------------------------------------------------- */
-.terms-section{
-  padding:var(--space-2xl) var(--space-xl);
-  max-width:880px; margin:0 auto;
-  background:var(--bg-secondary);
-  border-radius:28px;
-  box-shadow:0 6px 20px var(--shadow-color);
-  color:var(--text-primary);
-  line-height:1.6;
-}
-.terms-section h2{
-  font-size:var(--text-2xl);
-  margin-top:var(--space-3xl);
-  margin-bottom:var(--space-lg);
-  color:var(--accent-primary);
-}
-.terms-section p{
-  font-size:var(--text-base);
-  margin-bottom:var(--space-md);
-  color:var(--text-secondary);
-}
-.terms-section ul{padding-left:var(--space-lg); margin-top:var(--space-sm);}
-.terms-section li{margin-bottom:var(--space-xs);}
-
-.terms-last{
-  font-size:var(--text-sm);
-  text-align:center;
-  margin-top:var(--space-3xl);
-  color:var(--text-muted);
-}
-
-/* --------------------------------------------------------
-   4️⃣  Responsiveness
-   -------------------------------------------------------- */
-@media (max-width:1024px){
-  .hero-block h1{font-size:var(--text-3xl);}
-}
-@media (max-width:768px){
-  .hero-block h1{font-size:var(--text-2xl);}
-  .hero-block p{font-size:var(--text-lg);}
-}
-@media (max-width:480px){
-  .hero-block h1{font-size:var(--text-xl);}
-  .hero-block p{font-size:var(--text-sm);}
-}
-
-  </style>
 </head>
 
 <body class="fade-in">
@@ -171,7 +80,7 @@
 
     <!-- Breadcrumb -->
     <nav class="breadcrumbs">
-      <a href="/">Головна</a> / <span>Умови використання</span>
+      <a href="/index.html">Головна</a> / <span>Умови використання</span>
     </nav>
 
     <!-- Hero section – the same hero style used elsewhere -->
@@ -239,13 +148,8 @@
 
 <footer id="footer" class="site-footer"></footer>
 
-<!-- scroll‑to‑top button  -->
-<button class="scroll-to-top" id="scrollToTopBtn" aria-label="Наверх">↑</button>
 
-<script src="assets/js/main.js"></script>
-<script>
-  const topBtn = document.getElementById('scrollToTopBtn');
-  window.addEventListener('scroll', () => topBtn.classList.toggle('show', window.scrollY > 500));
-</script>
+<script src="/assets/js/main.js"></script>
+<script src="/assets/js/scrollToTop.js"></script>
 </body>
 </html>

@@ -179,31 +179,49 @@
    ========================================================= */
 *, *::before, *::after{box-sizing:border-box;}
 
-html{
-  /* Намай вміним "smooth" це не дуже; обмежаємо лише body */
-  min-height:100vh;
-  background-color:var(--bg-primary);
-  background-image:var(--page-bg-image);
-  background-size:cover;
-  background-position:center;
-  /* Фіксований фон залишено – він працює без CSS-залип. */
-  background-attachment:fixed;
-  color:var(--text-primary);
+html {
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+  background-size: cover;
+  background-position: center;
 }
 
-body{
-  margin:auto;
-  max-width:1444px;
-  width:100%;
-  padding:var(--text-6xl) 0;
-  overflow-x:hidden;
-  position:relative;
-  font-family:var(--font-family);
-  color:var(--text-primary);
-  line-height:1.6;
-  /* Плавне прокручування – лише в межах body   */
-  scroll-behavior:smooth;
+html::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: var(--page-bg-image);
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
 }
+
+body {
+  margin: auto;
+  max-width: 1444px;
+  width: 100%;
+  padding: var(--text-6xl) 0;
+  overflow-x: hidden;
+  position: relative;
+  font-family: var(--font-family);
+  color: var(--text-primary);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+/* 1️⃣ Плавність появи сторінки (тільки CSS) */
+body {
+  opacity: 0;
+
+  animation: fadeInPage 0.6s ease-in-out forwards;
+}
+
+/* Ключові кадри анімації */
+@keyframes fadeInPage {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
 
 main{
   background-color:var(--bg-primary);
@@ -249,11 +267,31 @@ main{
   left:0;
 }
 
+
+
 /* =========================================================
    3️⃣  СПЕЦИФІЧНІ СТИЛІ ДЛЯ ДОДАТКІВ
    ========================================================= */
 main{
   padding:var(--space-xl) var(--space-lg);
+}
+
+
+
+/* Хлібні крихти */
+.breadcrumbs {
+    margin-bottom: var(--space-lg);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+}
+
+.breadcrumbs a {
+    color: var(--accent-secondary);
+    text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+    text-decoration: underline;
 }
 
 /* Заголовок секції */
@@ -468,3 +506,51 @@ main{
   background:var(--bg-secondary);
   border-radius:16px;
 }
+
+
+
+
+
+ /* Кнопка наверх */
+  .scroll-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: var(--accent-secondary);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition-default);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+  }
+  
+  .scroll-to-top.show {
+      opacity: 1;
+      visibility: visible;
+  }
+  
+  .scroll-to-top:hover {
+      background: var(--accent-primary);
+      transform: translateY(-3px);
+  }
+  
+  @media (max-width: 480px) {
+      .scroll-to-top { bottom: 20px; right: 20px; width: 40px; height: 40px; font-size: 18px; }
+  }
+
+
+
+
+
+
+
+  

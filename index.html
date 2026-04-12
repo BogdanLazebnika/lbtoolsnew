@@ -38,11 +38,11 @@
     <link rel="dns-prefetch" href="https://www.google-analytics.com">
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     
-    <link rel="stylesheet" href="assets/css/reset.css">
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/header.css">
-    <link rel="stylesheet" href="assets/css/footer.css">
-    <link rel="stylesheet" href="assets/css/index.css">
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/footer.css">
+    <link rel="stylesheet" href="/assets/css/index.css">
 
     
     <!-- Schema.org мікророзмітка -->
@@ -166,7 +166,7 @@
             
             <!-- Хлібні крихти для SEO -->
             <div class="breadcrumbs">
-                <a href="/">Головна</a> / <span>LB Tools - стиснення файлів онлайн</span>
+                <a href="/">Головна</a> / <span>LB Tools - Головна</span>
             </div>
             
             <!-- HERO блок з кнопкою замість зони завантаження -->
@@ -211,32 +211,56 @@
             <!-- Сітка переваг (розширена) -->
             <div class="feature-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
+                    <div class="feature-icon">
+                        <svg class="icon" aria-hidden="true">
+                            <use href="/assets/img/icons/icons.svg#flash-ico"></use>
+                        </svg>
+                    </div>
                     <h3>Блискавична швидкість</h3>
                     <p>Стиснення на серверах нового покоління займає лічені секунди навіть для відео 4K до 5 ГБ.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🔒</div>
+                    <div class="feature-icon">
+                        <svg class="icon" aria-hidden="true">
+                            <use href="/assets/img/icons/icons.svg#lock-ico"></use>
+                        </svg>
+                    </div>
                     <h3>Повна безпека</h3>
                     <p>Автоматичне видалення файлів через 60 хвилин. SSL шифрування 256 біт всіх даних.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🌍</div>
+                    <div class="feature-icon">
+                        <svg class="icon" aria-hidden="true">
+                            <use href="/assets/img/icons/icons.svg#globe-ico"></use>
+                        </svg>
+                    </div>
                     <h3>Доступність 24/7</h3>
                     <p>Працює на всіх пристроях: Windows, Mac, Linux, iPhone, Android. Без встановлення.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
+                    <div class="feature-icon">
+                        <svg class="icon" aria-hidden="true">
+                            <use href="/assets/img/icons/icons.svg#target-ico"></use>
+                        </svg>
+                    </div>
                     <h3>Точне налаштування</h3>
                     <p>Контролюйте ступінь стиснення, бітрейт, роздільну здатність, формат та кодек.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">📦</div>
+                    <div class="feature-icon">
+                        <svg class="icon" aria-hidden="true">
+                            <use href="/assets/img/icons/icons.svg#download-ico"></use>
+                        </svg>
+                    </div>
                     <h3>Пакетна обробка</h3>
                     <p>Стискайте до 50 файлів одночасно. Економте час на великих проєктах.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🆓</div>
+                    <div class="feature-icon">
+                        <svg class="icon" aria-hidden="true">
+                            <use href="/assets/img/icons/icons.svg#leaf-ico"></use>
+                        </svg>
+                    </div>
                     <h3>Повністю безкоштовно</h3>
                     <p>Жодних прихованих платежів, підписок або обмежень. Безкоштовно назавжди.</p>
                 </div>
@@ -360,11 +384,11 @@
     </main>
 
     <footer id="footer" class="site-footer"></footer>
-    
-    <!-- Кнопка "Наверх" -->
-    <button class="scroll-to-top" id="scrollToTopBtn" aria-label="Наверх">↑</button>
 
-    <script src="assets/js/main.js"></script>
+    
+
+    <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/scrollToTop.js"></script>
     <script>
         // Кнопка переходу до інструментів
         const goToToolsBtn = document.getElementById('goToToolsBtn');
@@ -397,21 +421,6 @@
                 item.classList.toggle('active');
             });
         });
-        
-        // Кнопка "Наверх"
-        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
-        if(scrollToTopBtn) {
-            window.addEventListener('scroll', () => {
-                if(window.scrollY > 500) {
-                    scrollToTopBtn.classList.add('show');
-                } else {
-                    scrollToTopBtn.classList.remove('show');
-                }
-            });
-            scrollToTopBtn.addEventListener('click', () => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        }
         
         // Анімації
         document.querySelectorAll('.format-badge, .testimonial-card').forEach((el, idx) => {

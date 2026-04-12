@@ -27,7 +27,7 @@ function throttle(func, limit) {
 function getIcon(icon, className = 'icon') {
     return `
         <svg class="${className}">
-            <use href="assets/img/icons/icons.svg#${icon}"></use>
+            <use href="/assets/img/icons/icons.svg#${icon}"></use>
         </svg>
     `;
 }
@@ -42,8 +42,8 @@ const categories = [
         icon: "image-ico",
         apps: [
             { id: "category-images", name: "Головна застосунків зображень", url: "/image-apps", icon: "image-ico"},
-            { id: "compress-image", name: "Стиснення зображень", url: "/image-apps/compress-image", icon: "image-ico", popular: true },
-            { id: "resize-image",   name: "Зміна розміру",        url: "/image-apps/resize-image",   icon: "image-ico" },
+            { id: "compress-image", name: "Стиснення зображень", url: "/image-apps/compress-image", icon: "optimization-img-ico", popular: true },
+            { id: "resize-image",   name: "Зміна розміру",        url: "/image-apps/resize-image",   icon: "optimization-img-ico" },
             { id: "convert-image", name: "Конвертація формату", url: "/image-apps/convert-image", icon: "image-ico" },
             { id: "crop-image", name: "обрізання фото", url: "/image-apps/crop-image", icon: "image-ico" }
         ]
@@ -61,9 +61,9 @@ const categories = [
     {
         id: "video",
         name: "Відео",
-        icon: "video-outline-ico",
+        icon: "compress-video-ico",
         apps: [
-            { id: "compress-video", name: "Стиснення відео",   url: "/apps/compress-video",   icon: "compress-video-outline-ico", popular: true },
+            { id: "compress-video", name: "Стиснення відео",   url: "/apps/compress-video",   icon: "crop-video-ico", popular: true },
             { id: "convert-video",  name: "Конвертація відео", url: "/apps/convert-video",   icon: "convert-video-outline-ico" }
         ]
     },
@@ -92,7 +92,7 @@ function initHeader() {
         const setIcon = theme =>
             iconUse?.setAttribute(
                 'href',
-                `assets/img/icons/icons.svg#${theme === 'dark' ? 'sun-ico' : 'moon-ico'}`
+                `/assets/img/icons/icons.svg#${theme === 'dark' ? 'sun-ico' : 'moon-ico'}`
             );
 
         themeBtn.onclick = () => {
@@ -427,7 +427,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (headerEl) {
         promises.push(
-            fetch('templates/header.html')
+            fetch('/templates/header.html')
                 .then(r => r.text())
                 .then(html => {
                     headerEl.innerHTML = html;
@@ -439,7 +439,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (footerEl) {
         promises.push(
-            fetch('templates/footer.html')
+            fetch('/templates/footer.html')
                 .then(r => r.text())
                 .then(html => {
                     footerEl.innerHTML = html;
@@ -452,6 +452,8 @@ document.addEventListener('DOMContentLoaded', () => {
         initSmoothScroll();
     });
 });
+
+
 
 window.renderDynamicLinks = renderDynamicLinks;
 window.reloadLinks        = renderDynamicLinks;
